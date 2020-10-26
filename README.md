@@ -1,5 +1,7 @@
 ## Database
 
+### Migration setup
+
 `rails g scaffold product code:string:uniq:not_null definition`
 
 `rails g scaffold sales date:datetime product:references return_amount:decimal buy_price:decimal sell_price:decimal`
@@ -13,6 +15,10 @@
 `rails g model Categoryings category:references product:references`
 
 `rails g model Outstanding product:references value:integer`
+
+### Generate boilerplate configuration files for RSpec
+
+`rails generate rspec:install`
 
 ### RAILS & REACT TEMPLATE
 
