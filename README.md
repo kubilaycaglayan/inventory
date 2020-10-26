@@ -12,6 +12,8 @@
 
 `rails g model Categoryings category:references product:references`
 
+`rails g model Outstanding product:references value:integer`
+
 ### RAILS & REACT TEMPLATE
 
 > Ready to deploy Heroku, Rails and React setup.
