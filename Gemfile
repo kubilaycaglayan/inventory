@@ -33,6 +33,8 @@ group :development, :test do
 end
 
 group :development do
+  gem 'rspec'
+  gem 'rspec-rails'
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3', '~> 1.4'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
