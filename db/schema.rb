@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_26_104436) do
+ActiveRecord::Schema.define(version: 2020_10_26_120854) do
+
+  create_table "invoices", force: :cascade do |t|
+    t.integer "invoice_number"
+    t.integer "pen_number"
+    t.integer "quantity"
+    t.decimal "tax_kdv", precision: 5, scale: 2
+    t.decimal "tax_otv", precision: 5, scale: 2
+    t.string "definition"
+    t.date "value_date"
+    t.decimal "sum", precision: 20, scale: 2
+    t.integer "product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["invoice_number", "pen_number"], name: "index_invoices_on_invoice_number_and_pen_number", unique: true
+    t.index ["product_id"], name: "index_invoices_on_product_id"
+  end
 
   create_table "payments", force: :cascade do |t|
     t.string "type"
@@ -41,6 +57,7 @@ ActiveRecord::Schema.define(version: 2020_10_26_104436) do
     t.index ["product_id"], name: "index_sales_on_product_id"
   end
 
+  add_foreign_key "invoices", "products"
   add_foreign_key "payments", "sales", column: "sales_id"
   add_foreign_key "sales", "products"
 end
