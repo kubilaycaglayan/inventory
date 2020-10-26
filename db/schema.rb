@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_26_103027) do
+ActiveRecord::Schema.define(version: 2020_10_26_104436) do
+
+  create_table "payments", force: :cascade do |t|
+    t.string "type"
+    t.string "bank"
+    t.decimal "comission", precision: 20, scale: 2
+    t.integer "sales_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["sales_id"], name: "index_payments_on_sales_id"
+  end
 
   create_table "products", force: :cascade do |t|
     t.string "code", null: false
@@ -31,5 +41,6 @@ ActiveRecord::Schema.define(version: 2020_10_26_103027) do
     t.index ["product_id"], name: "index_sales_on_product_id"
   end
 
+  add_foreign_key "payments", "sales", column: "sales_id"
   add_foreign_key "sales", "products"
 end
