@@ -3,9 +3,9 @@ class CreateSales < ActiveRecord::Migration[6.0]
     create_table :sales do |t|
       t.datetime :date
       t.references :product, null: false, foreign_key: true
-      t.decimal :return_amount
-      t.decimal :buy_price
-      t.decimal :sell_price
+      t.decimal :return_amount, precision: 20, scale: 2
+      t.decimal :buy_price, precision: 20, scale: 2, null: false
+      t.decimal :sell_price, precision: 20, scale: 2, null: false
 
       t.timestamps
     end
