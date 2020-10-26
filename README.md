@@ -4,6 +4,8 @@
 
 `rails g scaffold sales date:datetime product:references return_amount:decimal buy_price:decimal sell_price:decimal`
 
+`rails g model payments type bank comission:decimal sales:references`
+
 ### RAILS & REACT TEMPLATE
 
 > Ready to deploy Heroku, Rails and React setup.
