@@ -3,7 +3,7 @@ class CreateCategories < ActiveRecord::Migration[6.0]
     create_table :categories do |t|
       t.string :kind
       t.string :definition
-      t.integer :order_in_kind
+      t.integer :order_in_kind, default: 1
 
       t.timestamps
     end
