@@ -1,4 +1,10 @@
-# RAILS & REACT TEMPLATE
+## Database
+
+`rails g scaffold product code:string:uniq:not_null definition`
+
+`rails g scaffold sales date:datetime product:references return_amount:decimal buy_price:decimal sell_price:decimal`
+
+### RAILS & REACT TEMPLATE
 
 > Ready to deploy Heroku, Rails and React setup.
 
