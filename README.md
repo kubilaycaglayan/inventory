@@ -8,6 +8,10 @@
 
 `rails g scaffold invoices invoice_number:integer pen_number:integer quantity:integer tax_kdv:decimal tax_otv:decimal definition value_date:date sum:decimal product:references`
 
+`rails g model Category kind definition order_in_kind:integer`
+
+`rails g model Categoryings category:references product:references`
+
 ### RAILS & REACT TEMPLATE
 
 > Ready to deploy Heroku, Rails and React setup.
