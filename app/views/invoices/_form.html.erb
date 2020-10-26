@@ -1,0 +1,62 @@
+<%= form_with(model: invoice, local: true) do |form| %>
+  <% if invoice.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
+
+      <ul>
+        <% invoice.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :invoice_number %>
+    <%= form.number_field :invoice_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pen_number %>
+    <%= form.number_field :pen_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantity %>
+    <%= form.number_field :quantity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tax_kdv %>
+    <%= form.text_field :tax_kdv %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tax_otv %>
+    <%= form.text_field :tax_otv %>
+  </div>
+
+  <div class="field">
+    <%= form.label :definition %>
+    <%= form.text_field :definition %>
+  </div>
+
+  <div class="field">
+    <%= form.label :value_date %>
+    <%= form.date_select :value_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sum %>
+    <%= form.text_field :sum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :product_id %>
+    <%= form.text_field :product_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

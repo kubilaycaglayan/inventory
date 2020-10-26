@@ -6,6 +6,8 @@
 
 `rails g model payments type bank comission:decimal sales:references`
 
+`rails g scaffold invoices invoice_number:integer pen_number:integer quantity:integer tax_kdv:decimal tax_otv:decimal definition value_date:date sum:decimal product:references`
+
 ### RAILS & REACT TEMPLATE
 
 > Ready to deploy Heroku, Rails and React setup.
