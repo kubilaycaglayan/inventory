@@ -4,8 +4,8 @@ RSpec.describe Outstanding, type: :model do
   let(:value1) { 5 }
   let(:value2) { -5 }
   let(:p1) { Product.create(code: 'WAT24480TR', definition: 'Washing Machine') }
-  let(:outstanding1) { product_id: p1.id, value: value1 }
-  let(:outstanding2) { value: value2 }
+  let(:outstanding1) { Outstanding.new(product_id: p1.id, value: value1) }
+  let(:outstanding2) { Outstanding.new(value: value2) }
 
   describe 'database validations' do
     describe 'general' do
