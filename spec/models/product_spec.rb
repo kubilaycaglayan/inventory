@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Product, type: :model do
   let(:p1) { Product.new(code: 'WAT24480TR', definition: 'Washing Machine') }
 
-  describe 'validation' do
+  describe 'database validations' do
     it 'creates a product with code and definition' do
       expect(p1.save).to be true
     end
