@@ -2,10 +2,12 @@ require 'rails_helper'
 
 RSpec.describe Payment, type: :model do
   let(:comission) { 420 }
+  let(:kind) { 'Card' }
+  let(:bank) { 'HSBC' }
   let(:p1) { Product.create(code: 'WAT24480TR', definition: 'Washing Machine') }
   let(:s1) { Sale.create(date: '2020-10-27', product_id: p1.id, return_amount: 1000, buy_price: 1000, sell_price: 1000) }
-  let(:payment1) { Payment.new(kind: 'Card', bank: 'HSBC', comission: comission, sale_id: s1.id) }
-  let(:payment2) { Payment.new(kind: 'Card', bank: 'HSBC', comission: comission) }
+  let(:payment1) { Payment.new(kind: kind, bank: bank, comission: comission, sale_id: s1.id) }
+  let(:payment2) { Payment.new(kind: kind, bank: bank, comission: comission) }
   describe 'database validations' do
     describe 'general' do
       it 'successfully creates a payment record' do
@@ -26,6 +28,24 @@ RSpec.describe Payment, type: :model do
 
       it 'stores the comission in DDDD.DD format - falsy' do
         expect(payment1.comission).not_to eq comission + 0.1
+      end
+    end
+
+    describe 'kind and bank storage' do
+      it 'successfully stores the bank as a string' do
+        expect(payment1.bank).to eq bank
+      end
+
+      it 'successfully stores the bank as a string - falsy' do
+        expect(payment1.bank).not_to eq 'bank'
+      end
+
+      it 'successfully stores the kind as a string' do
+        expect(payment1.kind).to eq kind
+      end
+
+      it 'successfully stores the kind as a string - falsy' do
+        expect(payment1.kind).not_to eq 'kind'
       end
     end
   end

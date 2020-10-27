@@ -9,7 +9,7 @@ class CreateInvoices < ActiveRecord::Migration[6.0]
       t.string :definition
       t.date :value_date
       t.decimal :sum, precision: 20, scale: 2
-      t.references :product, null: false, foreign_key: true
+      t.string :product_code, null: false
 
       t.timestamps
     end

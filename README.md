@@ -8,7 +8,7 @@
 
 `rails g model payments kind bank comission:decimal sale:references`
 
-`rails g scaffold invoices invoice_number:integer pen_number:integer quantity:integer tax_kdv:decimal tax_otv:decimal definition value_date:date sum:decimal product:references`
+`rails g scaffold invoices invoice_number:integer pen_number:integer quantity:integer tax_kdv:decimal tax_otv:decimal definition value_date:date sum:decimal product_code:string:not_null`
 
 `rails g model Category kind definition order_in_kind:integer`
 

@@ -38,11 +38,10 @@ ActiveRecord::Schema.define(version: 2020_10_26_124321) do
     t.string "definition"
     t.date "value_date"
     t.decimal "sum", precision: 20, scale: 2
-    t.integer "product_id", null: false
+    t.string "product_code", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["invoice_number", "pen_number"], name: "index_invoices_on_invoice_number_and_pen_number", unique: true
-    t.index ["product_id"], name: "index_invoices_on_product_id"
   end
 
   create_table "outstandings", force: :cascade do |t|
@@ -84,7 +83,6 @@ ActiveRecord::Schema.define(version: 2020_10_26_124321) do
 
   add_foreign_key "categoryings", "categories"
   add_foreign_key "categoryings", "products"
-  add_foreign_key "invoices", "products"
   add_foreign_key "outstandings", "products"
   add_foreign_key "payments", "sales"
   add_foreign_key "sales", "products"
