@@ -6,7 +6,7 @@
 
 `rails g scaffold sales date:datetime product:references return_amount:decimal buy_price:decimal sell_price:decimal`
 
-`rails g model payments type bank comission:decimal sales:references`
+`rails g model payments kind bank comission:decimal sale:references`
 
 `rails g scaffold invoices invoice_number:integer pen_number:integer quantity:integer tax_kdv:decimal tax_otv:decimal definition value_date:date sum:decimal product:references`
 

@@ -54,13 +54,13 @@ ActiveRecord::Schema.define(version: 2020_10_26_124321) do
   end
 
   create_table "payments", force: :cascade do |t|
-    t.string "type"
+    t.string "kind"
     t.string "bank"
     t.decimal "comission", precision: 20, scale: 2
-    t.integer "sales_id", null: false
+    t.integer "sale_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["sales_id"], name: "index_payments_on_sales_id"
+    t.index ["sale_id"], name: "index_payments_on_sale_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -86,6 +86,6 @@ ActiveRecord::Schema.define(version: 2020_10_26_124321) do
   add_foreign_key "categoryings", "products"
   add_foreign_key "invoices", "products"
   add_foreign_key "outstandings", "products"
-  add_foreign_key "payments", "sales", column: "sales_id"
+  add_foreign_key "payments", "sales"
   add_foreign_key "sales", "products"
 end

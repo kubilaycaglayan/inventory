@@ -1,3 +1,3 @@
 class Payment < ApplicationRecord
-  belongs_to :sales
+  belongs_to :sale
 end
