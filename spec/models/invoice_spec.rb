@@ -9,7 +9,12 @@ RSpec.describe Invoice, type: :model do
   let(:definition) { 'Refrigerator' }
   let(:value_date) { '2025-02-15' }
   let(:sum) { 1550.50 }
-  let(:product_code) { 'WAT24480TR' }
+  let(:product_code_1) { 'product_1' }
+  let(:product_code_2) { 'product_2' }
+  let(:product_code_3) { 'product_3' }
+  let(:product_code_unique_1) { 'product_unique_1' }
+  let(:product_code_unique_2) { 'product_unique_2' }
+  let(:product_code_unique_3) { 'product_unique_3' }
 
   let(:product_information) {{
     invoice_number: invoice_number,
@@ -20,8 +25,56 @@ RSpec.describe Invoice, type: :model do
     definition: definition,
     value_date: value_date,
     sum: sum,
-    product_code: product_code
+    product_code: product_code_1
   }}
+
+  let(:product_information_with_timestamps_1) do
+    information = product_information.clone
+    information['created_at'] = Time.now
+    information['updated_at'] = Time.now
+
+    information.as_json
+  end
+
+  let(:product_information_with_timestamps_2) do
+    information = product_information_with_timestamps_1.clone
+    information['product_code'] = product_code_2
+
+    information
+  end
+
+  let(:product_information_with_timestamps_3) do
+    information = product_information_with_timestamps_1.clone
+    information['product_code'] = product_code_3
+
+    information
+  end
+
+  let(:product_information_with_timestamps_unique_1) do
+    information = product_information_with_timestamps_1.clone
+    information['product_code'] = product_code_unique_1
+    information['pen_number'] = 596
+
+    information
+  end
+
+  let(:product_information_with_timestamps_unique_2) do
+    information = product_information_with_timestamps_1.clone
+    information['product_code'] = product_code_unique_2
+    information['pen_number'] = 597
+
+    information
+  end
+
+  let(:product_information_with_timestamps_unique_3) do
+    information = product_information_with_timestamps_1.clone
+    information['product_code'] = product_code_unique_3
+    information['pen_number'] = 598
+
+    information
+  end
+
+
 
   let(:invoice1) { Invoice.new(product_information) }
 
@@ -198,7 +251,7 @@ RSpec.describe Invoice, type: :model do
         end
 
         it 'successfully stores the integer' do
-          expect(invoice1.product_code).to eq product_code
+          expect(invoice1.product_code).to eq product_code_1
         end
 
         it 'has an String data type - falsy' do
@@ -206,7 +259,7 @@ RSpec.describe Invoice, type: :model do
         end
 
         it 'successfully stores the value - falsy' do
-          expect(invoice1.product_code).not_to be product_code + '1'
+          expect(invoice1.product_code).not_to be product_code_1 + '1'
         end
       end
     end
@@ -248,67 +301,53 @@ RSpec.describe Invoice, type: :model do
 
   describe 'insert operations' do
     it 'inserts a record with .insert method' do
-      record = product_information.clone
-      record['created_at'] = Time.now
-      record['updated_at'] = Time.now
-      result = Invoice.insert(record)
+      result = Invoice.insert(product_information_with_timestamps_1)
 
       expect(result.rows.first.size).to be 1
       expect(result.rows.first.first).to be_an_instance_of Integer
+    end
+
+    it 'skips the non uniques and inserts valid records with .insert_all' do
+      Invoice.insert_all([
+        product_information_with_timestamps_1,
+        product_information_with_timestamps_2,
+        product_information_with_timestamps_3,
+        product_information_with_timestamps_unique_1,
+        product_information_with_timestamps_unique_2,
+        product_information_with_timestamps_unique_3
+      ])
+
+      expect(Set.new Invoice.pluck('product_code')).to eq Set.new [
+        product_information_with_timestamps_1['product_code'],
+        product_information_with_timestamps_unique_1['product_code'],
+        product_information_with_timestamps_unique_2['product_code'],
+        product_information_with_timestamps_unique_3['product_code']
+      ]
     end
   end
 
   describe 'upsert operations' do
     it 'updates a record with .upsert method' do
       record = Invoice.create(product_information)
-      record = record.as_json
-      record['product_code'] = 'XXX'
-      record['created_at'] = Time.now
-      record['updated_at'] = Time.now
 
-      result = Invoice.upsert(record)
-      expect(Invoice.find(record['id']).product_code).to eq 'XXX'
+      product_information_with_timestamps_2['id'] = record.id
+
+      result = Invoice.upsert(product_information_with_timestamps_2)
+      expect(Invoice.find(record['id']).product_code).to eq product_code_2
     end
 
     it 'both updates and inserts records with .upsert method' do
-      record1 = Invoice.create(product_information)
-      record1 = record1.as_json
-      record1['product_code'] = 'XXX'
-      record1['created_at'] = Time.now
-      record1['updated_at'] = Time.now
+      record = Invoice.create(product_information) # initial record
 
-      record2 = record1.clone
-      record2['product_code'] = 'YYY'
-      record2['pen_number'] = 123
-      record2['id'] = record1['id'] + 1
+      product_information_with_timestamps_2['id'] = record.id # update initial with this record
 
-      result = Invoice.upsert_all([record1, record2])
+      product_information_with_timestamps_3['id'] = record.id + 1 # insert a new record
+      product_information_with_timestamps_3['pen_number'] = 123
 
-      expect(Invoice.pluck(:product_code).first).to eq 'XXX'
-      expect(Invoice.pluck(:product_code).last).to eq 'YYY'
-    end
+      Invoice.upsert_all([product_information_with_timestamps_2, product_information_with_timestamps_3])
 
-    it 'updates the invalid rows and inserts the valid ones' do
-      record1 = Invoice.create(product_information)
-      record1 = record1.as_json
-      record1['product_code'] = 'XXX'
-      record1['created_at'] = Time.now
-      record1['updated_at'] = Time.now
-
-      record2 = record1.clone
-      record2['product_code'] = 'YYY'
-      record2['id'] = record1['id'] + 1
-
-      record3 = record1.clone
-      record3['product_code'] = 'ZZZ'
-      record3['pen_number'] = 123
-      record3['id'] = record1['id'] + 2
-
-      Invoice.upsert_all([record1, record3], unique_by: :index_invoices_on_invoice_number_and_pen_number)
-      expect(Set.new Invoice.pluck(:product_code)).to eq Set.new ['XXX', 'ZZZ']
-
-      Invoice.upsert_all([record2], unique_by: :index_invoices_on_invoice_number_and_pen_number)
-      expect(Set.new Invoice.pluck(:product_code)).to eq Set.new ['YYY', 'ZZZ']
+      expect(Invoice.pluck(:product_code).first).to eq product_code_2
+      expect(Invoice.pluck(:product_code).last).to eq product_code_3
     end
   end
 
