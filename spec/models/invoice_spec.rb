@@ -11,7 +11,7 @@ RSpec.describe Invoice, type: :model do
   let(:sum) { 1550.50 }
   let(:product_code) { 'WAT24480TR' }
 
-  let(:invoice1) { Invoice.new(
+  let(:product_information) {{
     invoice_number: invoice_number,
     pen_number: pen_number,
     quantity: quantity,
@@ -21,7 +21,9 @@ RSpec.describe Invoice, type: :model do
     value_date: value_date,
     sum: sum,
     product_code: product_code
-  )}
+  }}
+
+  let(:invoice1) { Invoice.new(product_information) }
 
   describe 'database validations' do
     describe 'general' do
@@ -230,9 +232,83 @@ RSpec.describe Invoice, type: :model do
         print invoice5.pen_number = invoice3.pen_number + 2
         print invoice6.pen_number = invoice3.pen_number + 3
 
-        Invoice.insert_all [invoice1.as_json, invoice2.as_json, invoice3.as_json, invoice4.as_json, invoice5.as_json, invoice6.as_json]
+        # p invoice1
+        # p invoice2
+        # p invoice3
+        # p invoice4
+        # p invoice5
+        # p invoice6
+
+        # Invoice.insert_all [invoice1.as_json, invoice2.as_json, invoice3.as_json, invoice4.as_json, invoice5.as_json, invoice6.as_json]
 
       end
+    end
+
+  end
+
+  describe 'insert operations' do
+    it 'inserts a record with .insert method' do
+      record = product_information.clone
+      record['created_at'] = Time.now
+      record['updated_at'] = Time.now
+      result = Invoice.insert(record)
+
+      expect(result.rows.first.size).to be 1
+      expect(result.rows.first.first).to be_an_instance_of Integer
+    end
+  end
+
+  describe 'upsert operations' do
+    it 'updates a record with .upsert method' do
+      record = Invoice.create(product_information)
+      record = record.as_json
+      record['product_code'] = 'XXX'
+      record['created_at'] = Time.now
+      record['updated_at'] = Time.now
+
+      result = Invoice.upsert(record)
+      expect(Invoice.find(record['id']).product_code).to eq 'XXX'
+    end
+
+    it 'both updates and inserts records with .upsert method' do
+      record1 = Invoice.create(product_information)
+      record1 = record1.as_json
+      record1['product_code'] = 'XXX'
+      record1['created_at'] = Time.now
+      record1['updated_at'] = Time.now
+
+      record2 = record1.clone
+      record2['product_code'] = 'YYY'
+      record2['pen_number'] = 123
+      record2['id'] = record1['id'] + 1
+
+      result = Invoice.upsert_all([record1, record2])
+
+      expect(Invoice.pluck(:product_code).first).to eq 'XXX'
+      expect(Invoice.pluck(:product_code).last).to eq 'YYY'
+    end
+
+    it 'updates the invalid rows and inserts the valid ones' do
+      record1 = Invoice.create(product_information)
+      record1 = record1.as_json
+      record1['product_code'] = 'XXX'
+      record1['created_at'] = Time.now
+      record1['updated_at'] = Time.now
+
+      record2 = record1.clone
+      record2['product_code'] = 'YYY'
+      record2['id'] = record1['id'] + 1
+
+      record3 = record1.clone
+      record3['product_code'] = 'ZZZ'
+      record3['pen_number'] = 123
+      record3['id'] = record1['id'] + 2
+
+      Invoice.upsert_all([record1, record3], unique_by: :index_invoices_on_invoice_number_and_pen_number)
+      expect(Set.new Invoice.pluck(:product_code)).to eq Set.new ['XXX', 'ZZZ']
+
+      Invoice.upsert_all([record2], unique_by: :index_invoices_on_invoice_number_and_pen_number)
+      expect(Set.new Invoice.pluck(:product_code)).to eq Set.new ['YYY', 'ZZZ']
     end
   end
 

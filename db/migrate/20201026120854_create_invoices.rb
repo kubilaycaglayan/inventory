@@ -12,8 +12,9 @@ class CreateInvoices < ActiveRecord::Migration[6.0]
       t.string :product_code, null: false
 
       t.timestamps
+      t.index [:invoice_number, :pen_number], unique: true
     end
 
-    add_index :invoices, [:invoice_number, :pen_number], unique: true
+    # add_index :invoices, [:invoice_number, :pen_number], unique: true
   end
 end

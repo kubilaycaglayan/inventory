@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2020_10_26_124321) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "categories", force: :cascade do |t|
     t.string "kind"
     t.string "definition"
@@ -21,8 +24,8 @@ ActiveRecord::Schema.define(version: 2020_10_26_124321) do
   end
 
   create_table "categoryings", force: :cascade do |t|
-    t.integer "category_id", null: false
-    t.integer "product_id", null: false
+    t.bigint "category_id", null: false
+    t.bigint "product_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_categoryings_on_category_id"
@@ -45,7 +48,7 @@ ActiveRecord::Schema.define(version: 2020_10_26_124321) do
   end
 
   create_table "outstandings", force: :cascade do |t|
-    t.integer "product_id", null: false
+    t.bigint "product_id", null: false
     t.integer "value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -56,7 +59,7 @@ ActiveRecord::Schema.define(version: 2020_10_26_124321) do
     t.string "kind"
     t.string "bank"
     t.decimal "comission", precision: 20, scale: 2
-    t.integer "sale_id", null: false
+    t.bigint "sale_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["sale_id"], name: "index_payments_on_sale_id"
@@ -72,7 +75,7 @@ ActiveRecord::Schema.define(version: 2020_10_26_124321) do
 
   create_table "sales", force: :cascade do |t|
     t.datetime "date"
-    t.integer "product_id", null: false
+    t.bigint "product_id", null: false
     t.decimal "return_amount", precision: 20, scale: 2
     t.decimal "buy_price", precision: 20, scale: 2, null: false
     t.decimal "sell_price", precision: 20, scale: 2, null: false
