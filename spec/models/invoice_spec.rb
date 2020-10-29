@@ -9,6 +9,7 @@ RSpec.describe Invoice, type: :model do
   let(:definition) { 'Refrigerator' }
   let(:value_date) { '2025-02-15' }
   let(:sum) { 1550.50 }
+  let(:product_code_updated_1) { 'product_code_updated_1' }
   let(:product_code_1) { 'product_1' }
   let(:product_code_2) { 'product_2' }
   let(:product_code_3) { 'product_3' }
@@ -288,7 +289,7 @@ RSpec.describe Invoice, type: :model do
         product_information_with_timestamps_unique_1,
         product_information_with_timestamps_unique_2,
         product_information_with_timestamps_unique_3
-      ])
+      ], returning: %w[ product_code definition ])
 
       expect(Set.new Invoice.pluck(:product_code)).to eq Set.new [
         product_code_unique_1,
@@ -346,7 +347,7 @@ RSpec.describe Invoice, type: :model do
     end
   end
 
-  describe 'callbacks' do
+  describe 'callbacks & triggers' do
     describe 'check_new_product' do
       it 'automatically adds new products after create' do
         expect(Product.count).to be 0
@@ -368,8 +369,59 @@ RSpec.describe Invoice, type: :model do
         expect(Product.first.code).to eq product_code_1
       end
 
-      it 'can handle bulk operations' do
+      it 'bulk operations: insert_all, 1 exists, insert 2' do
+        Product.create({code: product_code_unique_1})
+        expect(Product.count).to be 1
+        Invoice.insert_all([
+          product_information_with_timestamps_unique_1,
+          product_information_with_timestamps_unique_2,
+          product_information_with_timestamps_unique_3
+        ],
+        returning: %w[ product_code definition ]
+      )
+        expect(Product.count).to be 3
+        expect(Set.new Product.pluck(:code)).to eq Set.new [
+          product_code_unique_1,
+          product_code_unique_2,
+          product_code_unique_3,
+        ]
+      end
 
+      it 'bulk operations: insert_all, all exists' do
+        Product.create({code: product_code_unique_1})
+        Product.create({code: product_code_unique_2})
+        Product.create({code: product_code_unique_3})
+        expect(Product.count).to be 3
+        Invoice.insert_all([
+          product_information_with_timestamps_unique_1,
+          product_information_with_timestamps_unique_2,
+          product_information_with_timestamps_unique_3
+        ],
+        returning: %w[ product_code definition ]
+      )
+        expect(Product.count).to be 3
+        expect(Set.new Product.pluck(:code)).to eq Set.new [
+          product_code_unique_1,
+          product_code_unique_2,
+          product_code_unique_3,
+        ]
+      end
+
+      it 'bulk operations: insert_all, none exists, insert 3' do
+        expect(Product.count).to be 0
+        Invoice.insert_all([
+          product_information_with_timestamps_unique_1,
+          product_information_with_timestamps_unique_2,
+          product_information_with_timestamps_unique_3
+        ],
+        returning: %w[ product_code definition ]
+      )
+        expect(Product.count).to be 3
+        expect(Set.new Product.pluck(:code)).to eq Set.new [
+          product_code_unique_1,
+          product_code_unique_2,
+          product_code_unique_3,
+        ]
       end
     end
   end
