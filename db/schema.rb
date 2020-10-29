@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2020_10_26_124321) do
     t.decimal "tax_otv", precision: 5, scale: 2
     t.string "definition"
     t.date "value_date"
+    t.date "invoice_date"
     t.decimal "sum", precision: 20, scale: 2
     t.string "product_code", null: false
     t.datetime "created_at", precision: 6, null: false

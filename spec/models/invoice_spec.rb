@@ -8,6 +8,7 @@ RSpec.describe Invoice, type: :model do
   let(:tax_otv) { 15.5 }
   let(:definition) { 'Refrigerator' }
   let(:value_date) { '2025-02-15' }
+  let(:invoice_date) { '2025-02-15' }
   let(:sum) { 1550.50 }
   let(:product_code_updated_1) { 'product_code_updated_1' }
   let(:product_code_1) { 'product_1' }
@@ -26,11 +27,41 @@ RSpec.describe Invoice, type: :model do
     definition: definition,
     value_date: value_date,
     sum: sum,
-    product_code: product_code_1
+    product_code: product_code_1,
+    invoice_date: invoice_date
   }}
 
+  let(:product_information_1) {{
+    invoice_number: invoice_number,
+    pen_number: pen_number,
+    quantity: quantity,
+    tax_kdv: tax_kdv,
+    tax_otv: tax_otv,
+    definition: definition,
+    value_date: value_date,
+    sum: sum,
+    product_code: product_code_1,
+    invoice_date: invoice_date
+  }}
+
+  let(:product_information_2) do
+    information = product_information_1.clone
+    information['product_code'] = product_code_2
+    information['pen_number'] = product_information_1['pen_number'] + 1
+
+    information
+  end
+
+  let(:product_information_2) do
+    information = product_information_1.clone
+    information['product_code'] = product_code_2
+    information['pen_number'] = product_information_1['pen_number'] + 2
+
+    information
+  end
+
   let(:product_information_with_timestamps_1) do
-    information = product_information.clone
+    information = product_information_1.clone
     information['created_at'] = Time.now
     information['updated_at'] = Time.now
 
@@ -75,9 +106,15 @@ RSpec.describe Invoice, type: :model do
     information
   end
 
-
-
   let(:invoice1) { Invoice.new(product_information) }
+  let(:invoice2) { Invoice.create({ invoice_date: invoice_date, invoice_number: 2, pen_number: 2, quantity: 2, tax_kdv: 2, tax_otv: 2, definition: definition, value_date: value_date, sum: 2, product_code: product_code_unique_1 }) }
+  let(:invoice3) { Invoice.create({ invoice_date: invoice_date, invoice_number: 3, pen_number: 3, quantity: 3, tax_kdv: 3, tax_otv: 3, definition: definition, value_date: value_date, sum: 3, product_code: product_code_unique_1 }) }
+  let(:invoice4) { Invoice.create({ invoice_date: invoice_date, invoice_number: 4, pen_number: 4, quantity: 4, tax_kdv: 4, tax_otv: 4, definition: definition, value_date: value_date, sum: 4, product_code: product_code_unique_1 }) }
+  let(:invoice5) { Invoice.create({ invoice_date: invoice_date, invoice_number: 5, pen_number: 5, quantity: 5, tax_kdv: 5, tax_otv: 5, definition: definition, value_date: value_date, sum: 5, product_code: product_code_unique_1 }) }
+  let(:invoice6) { Invoice.create({ invoice_date: invoice_date, invoice_number: 6, pen_number: 6, quantity: 6, tax_kdv: 6, tax_otv: 6, definition: definition, value_date: value_date, sum: 6, product_code: product_code_unique_1 }) }
+  let(:invoice7) { Invoice.create({ invoice_date: invoice_date, invoice_number: 7, pen_number: 7, quantity: 7, tax_kdv: 7, tax_otv: 7, definition: definition, value_date: value_date, sum: 7, product_code: product_code_unique_1 }) }
+  let(:invoice8) { Invoice.create({ invoice_date: invoice_date, invoice_number: 8, pen_number: 8, quantity: 8, tax_kdv: 8, tax_otv: 8, definition: definition, value_date: value_date, sum: 8, product_code: product_code_unique_1 }) }
+  let(:invoice9) { Invoice.create({ invoice_date: invoice_date, invoice_number: 9, pen_number: 9, quantity: 9, tax_kdv: 9, tax_otv: 9, definition: definition, value_date: value_date, sum: 9, product_code: product_code_unique_1 }) }
 
   describe 'database validations' do
     describe 'general' do
@@ -426,4 +463,11 @@ RSpec.describe Invoice, type: :model do
     end
   end
 
+  describe :cost_calculator do
+    it 'returns the nth record from the last for a given product' do
+      byebug
+      Invoice.create(product_information_1)
+      # expect(Invoice.fifo product_code_unique_1, 3). to
+    end
+  end
 end
