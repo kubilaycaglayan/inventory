@@ -353,6 +353,14 @@ RSpec.describe Invoice, type: :model do
         Invoice.create(product_information)
         expect(Product.first.code).to eq product_code_1
       end
+
+      it 'doesn\t add a product if it already exists' do
+
+      end
+
+      it 'can handle bulk operations' do
+
+      end
     end
   end
 
