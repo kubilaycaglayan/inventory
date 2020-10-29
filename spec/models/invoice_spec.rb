@@ -272,31 +272,7 @@ RSpec.describe Invoice, type: :model do
         invoice2.pen_number = rand.ceil
         expect(invoice2.save).to be true
       end
-
-      it 'saves multiple records even if they have not uniqe ones among them' do
-        invoice2 = invoice1.dup
-        invoice3 = invoice1.dup
-        invoice4 = invoice1.dup
-        invoice5 = invoice1.dup
-        invoice6 = invoice1.dup
-
-        print invoice3.pen_number = (rand * 10000).ceil
-        print invoice4.pen_number = invoice3.pen_number + 1
-        print invoice5.pen_number = invoice3.pen_number + 2
-        print invoice6.pen_number = invoice3.pen_number + 3
-
-        # p invoice1
-        # p invoice2
-        # p invoice3
-        # p invoice4
-        # p invoice5
-        # p invoice6
-
-        # Invoice.insert_all [invoice1.as_json, invoice2.as_json, invoice3.as_json, invoice4.as_json, invoice5.as_json, invoice6.as_json]
-
-      end
     end
-
   end
 
   describe 'insert operations' do
@@ -305,6 +281,25 @@ RSpec.describe Invoice, type: :model do
 
       expect(result.rows.first.size).to be 1
       expect(result.rows.first.first).to be_an_instance_of Integer
+    end
+
+    it 'inserts multiple records' do
+      Invoice.insert_all([
+        product_information_with_timestamps_unique_1,
+        product_information_with_timestamps_unique_2,
+        product_information_with_timestamps_unique_3
+      ])
+
+      expect(Set.new Invoice.pluck(:product_code)).to eq Set.new [
+        product_code_unique_1,
+        product_code_unique_2,
+        product_code_unique_3
+      ]
+
+      expect(Set.new Invoice.pluck(:product_code)).not_to eq Set.new [
+        product_code_unique_1,
+        product_code_unique_2
+      ]
     end
 
     it 'skips the non uniques and inserts valid records with .insert_all' do
@@ -352,8 +347,12 @@ RSpec.describe Invoice, type: :model do
   end
 
   describe 'triggers' do
-    describe 'automatically adds new products into the products table' do
-
+    describe 'new products' do
+      it 'automatically adds new products into the products table' do
+        expect(Product.count).to be 0
+        Invoice.create(product_information)
+        expect(Product.first.code).to eq product_code_1
+      end
     end
   end
 
