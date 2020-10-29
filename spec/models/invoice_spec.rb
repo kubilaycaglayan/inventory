@@ -346,16 +346,26 @@ RSpec.describe Invoice, type: :model do
     end
   end
 
-  describe 'triggers' do
-    describe 'new products' do
-      it 'automatically adds new products into the products table' do
+  describe 'callbacks' do
+    describe 'check_new_product' do
+      it 'automatically adds new products after create' do
         expect(Product.count).to be 0
         Invoice.create(product_information)
         expect(Product.first.code).to eq product_code_1
       end
 
-      it 'doesn\t add a product if it already exists' do
+      it 'automatically adds new products after save' do
+        expect(Product.count).to be 0
+        Invoice.new(product_information).save
+        expect(Product.first.code).to eq product_code_1
+      end
 
+      it 'doesn\'t add a product if it already exists' do
+        Product.create({code: product_code_1})
+        expect(Product.count).to be 1
+        Invoice.create(product_information)
+        expect(Product.count).to be 1
+        expect(Product.first.code).to eq product_code_1
       end
 
       it 'can handle bulk operations' do
