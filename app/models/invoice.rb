@@ -19,11 +19,24 @@ class Invoice < ApplicationRecord
     end
 
     def cost_calculator(product_code, nth)
-      result = fifo(product_code, nth)
+      result = {
+        status: false,
+        message: '',
+        invoice: nil,
+        value: nil,
+      }
 
-      return result if result.class == String
+      fifo_result = fifo(product_code, nth)
 
-      result.sum / result.quantity
+      if fifo_result.class == String
+        result[:message] = fifo_result
+      else
+        result[:status] = true
+        result[:invoice] = fifo_result
+        result[:value] = fifo_result.sum / fifo_result.quantity
+      end
+
+      result
     end
 
     def fifo(product_code, nth)
@@ -39,7 +52,7 @@ class Invoice < ApplicationRecord
         return invoice if sum >= nth
       end
 
-      nil
+      'En error occured.'
     end
   end
 

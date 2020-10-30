@@ -504,46 +504,44 @@ RSpec.describe Invoice, type: :model do
       end
     end
 
-    describe 'cost calculator' do
+    describe :cost_calculator do
       it 'calculates the cost of a given product according to the fifo rule' do
         group1
-        expect(Invoice.cost_calculator(product_code_unique_1, 13)).to eq 1000
+        expect(Invoice.cost_calculator(product_code_unique_1, 13)[:value]).to eq 1000
       end
 
       it 'calculates the cost of a given product according to the fifo rule' do
         group1
-        expect(Invoice.cost_calculator(product_code_unique_1, 1)).to eq 125
+        expect(Invoice.cost_calculator(product_code_unique_1, 1)[:value]).to eq 125
       end
 
       it 'calculates the cost of a given product according to the fifo rule' do
         group1
-        expect(Invoice.cost_calculator(product_code_unique_1, 4)).to eq 125
+        expect(Invoice.cost_calculator(product_code_unique_1, 4)[:value]).to eq 125
       end
 
       it 'calculates the cost of a given product according to the fifo rule' do
         group1
-        expect(Invoice.cost_calculator(product_code_unique_1, 5)).to eq 100
+        expect(Invoice.cost_calculator(product_code_unique_1, 5)[:value]).to eq 100
       end
 
       it 'calculates the cost of a given product according to the fifo rule - falsy' do
         group1
-        expect(Invoice.cost_calculator(product_code_unique_1, 5)).not_to eq 101
+        expect(Invoice.cost_calculator(product_code_unique_1, 5)[:value]).not_to eq 101
       end
 
       it 'calculates the cost of a given product according to the fifo rule - last item' do
         group1
-
-        expect(Invoice.cost_calculator(product_code_unique_1, 32)).to eq 1
+        expect(Invoice.cost_calculator(product_code_unique_1, 32)[:value]).to eq 1
       end
 
       it 'returns an error message when the nth is out of range' do
         group1
-
-        expect(Invoice.cost_calculator(product_code_unique_1, 33)).to eq 'Invoice cannot be found'
+        expect(Invoice.cost_calculator(product_code_unique_1, 33)[:message]).to eq 'Invoice cannot be found'
       end
 
       it 'returns an error message when the product doesn\'t exist' do
-        expect(Invoice.cost_calculator(product_code_unique_1, 33)).to eq 'Product doesn\'t exist.'
+        expect(Invoice.cost_calculator(product_code_unique_1, 33)[:message]).to eq 'Product doesn\'t exist.'
       end
     end
   end
