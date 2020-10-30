@@ -107,14 +107,41 @@ RSpec.describe Invoice, type: :model do
   end
 
   let(:invoice1) { Invoice.new(product_information) }
-  let(:invoice2) { Invoice.create({ invoice_date: invoice_date, invoice_number: 2, pen_number: 2, quantity: 2, tax_kdv: 2, tax_otv: 2, definition: definition, value_date: value_date, sum: 2, product_code: product_code_unique_1 }) }
-  let(:invoice3) { Invoice.create({ invoice_date: invoice_date, invoice_number: 3, pen_number: 3, quantity: 3, tax_kdv: 3, tax_otv: 3, definition: definition, value_date: value_date, sum: 3, product_code: product_code_unique_1 }) }
-  let(:invoice4) { Invoice.create({ invoice_date: invoice_date, invoice_number: 4, pen_number: 4, quantity: 4, tax_kdv: 4, tax_otv: 4, definition: definition, value_date: value_date, sum: 4, product_code: product_code_unique_1 }) }
-  let(:invoice5) { Invoice.create({ invoice_date: invoice_date, invoice_number: 5, pen_number: 5, quantity: 5, tax_kdv: 5, tax_otv: 5, definition: definition, value_date: value_date, sum: 5, product_code: product_code_unique_1 }) }
-  let(:invoice6) { Invoice.create({ invoice_date: invoice_date, invoice_number: 6, pen_number: 6, quantity: 6, tax_kdv: 6, tax_otv: 6, definition: definition, value_date: value_date, sum: 6, product_code: product_code_unique_1 }) }
-  let(:invoice7) { Invoice.create({ invoice_date: invoice_date, invoice_number: 7, pen_number: 7, quantity: 7, tax_kdv: 7, tax_otv: 7, definition: definition, value_date: value_date, sum: 7, product_code: product_code_unique_1 }) }
-  let(:invoice8) { Invoice.create({ invoice_date: invoice_date, invoice_number: 8, pen_number: 8, quantity: 8, tax_kdv: 8, tax_otv: 8, definition: definition, value_date: value_date, sum: 8, product_code: product_code_unique_1 }) }
-  let(:invoice9) { Invoice.create({ invoice_date: invoice_date, invoice_number: 9, pen_number: 9, quantity: 9, tax_kdv: 9, tax_otv: 9, definition: definition, value_date: value_date, sum: 9, product_code: product_code_unique_1 }) }
+  let(:invoice2) { Invoice.create({ invoice_date: '2020-10-1', invoice_number: 2, pen_number: 2, quantity: 2, tax_kdv: 2, tax_otv: 2, definition: definition, value_date: value_date, sum: 2, product_code: product_code_unique_1 }) }
+  let(:invoice12) { Invoice.create({ invoice_date: '2020-10-1', invoice_number: 12, pen_number: 2, quantity: 2, tax_kdv: 2, tax_otv: 2, definition: definition, value_date: value_date, sum: 2, product_code: product_code_unique_2 }) }
+  let(:invoice3) { Invoice.create({ invoice_date: '2020-10-2', invoice_number: 3, pen_number: 3, quantity: 3, tax_kdv: 3, tax_otv: 3, definition: definition, value_date: value_date, sum: 3, product_code: product_code_unique_1 }) }
+  let(:invoice13) { Invoice.create({ invoice_date: '2020-10-2', invoice_number: 13, pen_number: 3, quantity: 3, tax_kdv: 3, tax_otv: 3, definition: definition, value_date: value_date, sum: 3, product_code: product_code_unique_2 }) }
+  let(:invoice4) { Invoice.create({ invoice_date: '2020-10-3', invoice_number: 4, pen_number: 4, quantity: 4, tax_kdv: 4, tax_otv: 4, definition: definition, value_date: value_date, sum: 4, product_code: product_code_unique_1 }) }
+  let(:invoice14) { Invoice.create({ invoice_date: '2020-10-3', invoice_number: 14, pen_number: 4, quantity: 4, tax_kdv: 4, tax_otv: 4, definition: definition, value_date: value_date, sum: 4, product_code: product_code_unique_2 }) }
+  let(:invoice5) { Invoice.create({ invoice_date: '2020-10-4', invoice_number: 5, pen_number: 5, quantity: 5, tax_kdv: 5, tax_otv: 5, definition: definition, value_date: value_date, sum: 5, product_code: product_code_unique_1 }) }
+  let(:invoice15) { Invoice.create({ invoice_date: '2020-10-4', invoice_number: 15, pen_number: 5, quantity: 5, tax_kdv: 5, tax_otv: 5, definition: definition, value_date: value_date, sum: 5, product_code: product_code_unique_2 }) }
+  let(:invoice6) { Invoice.create({ invoice_date: '2020-10-5', invoice_number: 6, pen_number: 6, quantity: 6, tax_kdv: 6, tax_otv: 6, definition: definition, value_date: value_date, sum: 6000, product_code: product_code_unique_1 }) }
+  let(:invoice16) { Invoice.create({ invoice_date: '2020-10-5', invoice_number: 16, pen_number: 6, quantity: 6, tax_kdv: 6, tax_otv: 6, definition: definition, value_date: value_date, sum: 6000, product_code: product_code_unique_2 }) }
+  let(:invoice7) { Invoice.create({ invoice_date: '2020-10-6', invoice_number: 7, pen_number: 7, quantity: 4, tax_kdv: 7, tax_otv: 7, definition: definition, value_date: value_date, sum: 7, product_code: product_code_unique_1 }) }
+  let(:invoice17) { Invoice.create({ invoice_date: '2020-10-6', invoice_number: 17, pen_number: 7, quantity: 4, tax_kdv: 7, tax_otv: 7, definition: definition, value_date: value_date, sum: 7, product_code: product_code_unique_2 }) }
+  let(:invoice8) { Invoice.create({ invoice_date: '2020-10-7', invoice_number: 8, pen_number: 8, quantity: 4, tax_kdv: 8, tax_otv: 8, definition: definition, value_date: value_date, sum: 400, product_code: product_code_unique_1 }) }
+  let(:invoice18) { Invoice.create({ invoice_date: '2020-10-7', invoice_number: 18, pen_number: 8, quantity: 4, tax_kdv: 8, tax_otv: 8, definition: definition, value_date: value_date, sum: 400, product_code: product_code_unique_2 }) }
+  let(:invoice9) { Invoice.create({ invoice_date: '2020-10-8', invoice_number: 9, pen_number: 9, quantity: 4, tax_kdv: 9, tax_otv: 9, definition: definition, value_date: value_date, sum: 500, product_code: product_code_unique_1 }) }
+  let(:invoice19) { Invoice.create({ invoice_date: '2020-10-8', invoice_number: 19, pen_number: 9, quantity: 4, tax_kdv: 9, tax_otv: 9, definition: definition, value_date: value_date, sum: 500, product_code: product_code_unique_2 }) }
+
+  let(:group1) do
+    invoice2
+    invoice12
+    invoice3
+    invoice13
+    invoice4
+    invoice14
+    invoice5
+    invoice15
+    invoice6
+    invoice16
+    invoice7
+    invoice17
+    invoice8
+    invoice18
+    invoice9
+    invoice19
+  end
 
   describe 'database validations' do
     describe 'general' do
@@ -384,7 +411,7 @@ RSpec.describe Invoice, type: :model do
     end
   end
 
-  describe 'callbacks & triggers' do
+  describe :'callbacks & triggers' do
     describe 'check_new_product' do
       it 'automatically adds new products after create' do
         expect(Product.count).to be 0
@@ -398,7 +425,7 @@ RSpec.describe Invoice, type: :model do
         expect(Product.first.code).to eq product_code_1
       end
 
-      it 'doesn\'t add a product if it already exists' do
+      it 'do nothing if it already exists' do
         Product.create({code: product_code_1})
         expect(Product.count).to be 1
         Invoice.create(product_information)
@@ -463,11 +490,61 @@ RSpec.describe Invoice, type: :model do
     end
   end
 
-  describe :cost_calculator do
-    it 'returns the nth record from the last for a given product' do
-      byebug
-      Invoice.create(product_information_1)
-      # expect(Invoice.fifo product_code_unique_1, 3). to
+  describe 'cost calculations' do
+    describe 'fifo' do
+      it 'returns the nth record from the last for a given product' do
+        group1
+
+        expect(Invoice.fifo product_code_unique_1, 13).to eq invoice6
+      end
+
+      it 'returns the nth record from the last for a given product - falsy' do
+        group1
+        expect(Invoice.fifo product_code_unique_1, 13).not_to eq invoice5
+      end
+    end
+
+    describe 'cost calculator' do
+      it 'calculates the cost of a given product according to the fifo rule' do
+        group1
+        expect(Invoice.cost_calculator(product_code_unique_1, 13)).to eq 1000
+      end
+
+      it 'calculates the cost of a given product according to the fifo rule' do
+        group1
+        expect(Invoice.cost_calculator(product_code_unique_1, 1)).to eq 125
+      end
+
+      it 'calculates the cost of a given product according to the fifo rule' do
+        group1
+        expect(Invoice.cost_calculator(product_code_unique_1, 4)).to eq 125
+      end
+
+      it 'calculates the cost of a given product according to the fifo rule' do
+        group1
+        expect(Invoice.cost_calculator(product_code_unique_1, 5)).to eq 100
+      end
+
+      it 'calculates the cost of a given product according to the fifo rule - falsy' do
+        group1
+        expect(Invoice.cost_calculator(product_code_unique_1, 5)).not_to eq 101
+      end
+
+      it 'calculates the cost of a given product according to the fifo rule - last item' do
+        group1
+
+        expect(Invoice.cost_calculator(product_code_unique_1, 32)).to eq 1
+      end
+
+      it 'returns an error message when the nth is out of range' do
+        group1
+
+        expect(Invoice.cost_calculator(product_code_unique_1, 33)).to eq 'Invoice cannot be found'
+      end
+
+      it 'returns an error message when the product doesn\'t exist' do
+        expect(Invoice.cost_calculator(product_code_unique_1, 33)).to eq 'Product doesn\'t exist.'
+      end
     end
   end
 end
