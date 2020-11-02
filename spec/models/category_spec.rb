@@ -7,6 +7,8 @@ RSpec.describe Category, type: :model do
   let(:category_info_1) { { kind: 'Bosch', definition: 'Washing Machines' } }
   let(:category_info_2) { { kind: 'Muhasebe', definition: 'Washing Machines' } }
 
+  let(:category_seed) { require_relative '../../db/seeds.rb' }
+
   describe 'database validations' do
     it 'successfully creates a record' do
       expect(category_1.save).to be true
@@ -35,6 +37,19 @@ RSpec.describe Category, type: :model do
 
         expect(Category.create(category_info_2).order_in_kind).to be 1
         expect(Category.create(category_info_2).order_in_kind).to be 2
+      end
+    end
+
+    describe 'seeding' do
+      it 'successfullt seeds the initial categories' do
+        category_seed
+        expect(Category.where(kind: 'Bosch').count).to be 6
+        expect(Category.where(kind: 'Bosch').count).not_to be 0
+        expect(Category.where(kind: 'Muhasebe').count).to be 9
+        expect(Category.where(kind: 'Muhasebe').count).not_to be 0
+
+        expect(Category.where(kind: 'Bosch').pluck(:order_in_kind)).to match [1, 2, 3, 4, 5, 6]
+        expect(Category.where(kind: 'Muhasebe').pluck(:order_in_kind)).to match [1, 2, 3, 4, 5, 6, 7, 8, 9]
       end
     end
   end

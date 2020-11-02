@@ -8,6 +8,8 @@ RSpec.describe Categorying, type: :model do
   let(:categorying_2) { Categorying.new(category_id: category_1.id) }
   let(:categorying_3) { Categorying.new(product_id: product_1.id) }
 
+
+
   describe 'database validations' do
     it 'successfully creates a record' do
 
@@ -43,6 +45,30 @@ RSpec.describe Categorying, type: :model do
         expect(categorying_2.save).to be false
         categorying_2.product_id = 4
         expect { categorying_2.save! }.to raise_error ActiveRecord::RecordInvalid
+      end
+    end
+  end
+
+  describe 'callbacks' do
+    describe 'category assignment' do
+
+      before(:all) do
+        require_relative '../../db/seeds.rb'
+      end
+
+      describe 'bosch category identifier' do
+        it 'identifies the category of a bosch kind product' do
+          new_categorying = Categorying.bosch_category_identifier(product_1)
+          expect(new_categorying.product_id).to be product_1.id
+          expect(new_categorying.category_id).to be Category.where(kind: 'Bosch', definition: 'Solo').first.id
+        end
+
+        it 'identifies the category of a bosch kind product' do
+          new_categorying = Categorying.bosch_category_identifier(product_1)
+          expect(new_categorying.product_id).to be product_1.id
+          expect(new_categorying.category_id).to be Category.where(kind: 'Bosch', definition: 'Solo').first.id
+        end
+
       end
     end
   end
