@@ -61,37 +61,36 @@ RSpec.describe Categorying, type: :model do
 
   describe 'callbacks' do
     describe 'category assignment' do
-
       before(:all) do
         require_relative '../../db/seeds.rb'
       end
 
       describe 'bosch category identifier' do
-        it 'identifies the category of a bosch kind product - solo' do
+        it ' - solo' do
           new_categorying = Categorying.bosch_category_identifier(product_1)
           expect(new_categorying.product_id).to be product_1.id
           expect(new_categorying.category_id).to be Category.where(kind: 'Bosch', definition: 'Solo').first.id
         end
 
-        it 'identifies the category of a bosch kind product - solo' do
+        it ' - solo' do
           new_categorying = Categorying.bosch_category_identifier(product_1)
           expect(new_categorying.product_id).to be product_1.id
           expect(new_categorying.category_id).to be Category.where(kind: 'Bosch', definition: 'Solo').first.id
         end
 
-        it 'identifies the category of a bosch kind product - televizyon' do
+        it ' - televizyon' do
           new_categorying = Categorying.bosch_category_identifier(product_2)
           expect(new_categorying.product_id).to be product_2.id
           expect(new_categorying.category_id).to be Category.where(kind: 'Bosch', definition: 'Televizyon').first.id
         end
 
-        it 'identifies the category of a bosch kind product - kea' do
+        it ' - kea' do
           new_categorying = Categorying.bosch_category_identifier(product_7)
           expect(new_categorying.product_id).to be product_7.id
           expect(new_categorying.category_id).to be Category.where(kind: 'Bosch', definition: 'Küçük Ev Aleti').first.id
         end
 
-        it 'identifies the category of a bosch kind product - Ankastre' do
+        it ' - Ankastre' do
           new_categorying = Categorying.bosch_category_identifier(product_5)
           expect(new_categorying.product_id).to be product_5.id
           expect(new_categorying.category_id).to be Category.where(kind: 'Bosch', definition: 'Ankastre').first.id
@@ -100,55 +99,55 @@ RSpec.describe Categorying, type: :model do
 
       describe 'muhasebe category identifier' do
 
-        it 'identifies the category of a bosch kind product - Çamaşır Makinesi' do
+        it ' - Çamaşır Makinesi' do
           new_categorying = Categorying.muhasebe_category_identifier(product_1)
           expect(new_categorying.product_id).to be product_1.id
           expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe', definition: 'Çamaşır Makinesi').first.id
         end
 
-        it 'identifies the category of a bosch kind product - Bulaşık Makinesi' do
+        it ' - Bulaşık Makinesi' do
           new_categorying = Categorying.muhasebe_category_identifier(product_10)
           expect(new_categorying.product_id).to be product_10.id
           expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe', definition: 'Bulaşık Makinesi').first.id
         end
 
-        it 'identifies the category of a bosch kind product - Buzdolabı' do
+        it ' - Buzdolabı' do
           new_categorying = Categorying.muhasebe_category_identifier(product_6)
           expect(new_categorying.product_id).to be product_6.id
           expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe', definition: 'Buzdolabı').first.id
         end
 
-        it 'identifies the category of a bosch kind product - Fırın' do
+        it ' - Fırın' do
           new_categorying = Categorying.muhasebe_category_identifier(product_5)
           expect(new_categorying.product_id).to be product_5.id
           expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe', definition: 'Fırın').first.id
         end
 
-        it 'identifies the category of a bosch kind product - Ocak' do
+        it ' - Ocak' do
           new_categorying = Categorying.muhasebe_category_identifier(product_9)
           expect(new_categorying.product_id).to be product_9.id
           expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe', definition: 'Ocak').first.id
         end
 
-        it 'identifies the category of a bosch kind product - Davlumbaz' do
+        it ' - Davlumbaz' do
           new_categorying = Categorying.muhasebe_category_identifier(product_4)
           expect(new_categorying.product_id).to be product_4.id
           expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe', definition: 'Davlumbaz').first.id
         end
 
-        it 'identifies the category of a bosch kind product - Televizyon' do
+        it ' - Televizyon' do
           new_categorying = Categorying.muhasebe_category_identifier(product_2)
           expect(new_categorying.product_id).to be product_2.id
           expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe', definition: 'Televizyon').first.id
         end
 
-        it 'identifies the category of a bosch kind product - Küçük Ev Aleti' do
+        it ' - Küçük Ev Aleti' do
           new_categorying = Categorying.muhasebe_category_identifier(product_7)
           expect(new_categorying.product_id).to be product_7.id
           expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe', definition: 'Küçük Ev Aleti').first.id
         end
 
-        it 'identifies the category of a bosch kind product - Elektrikli Süpürge' do
+        it ' - Elektrikli Süpürge' do
           new_categorying = Categorying.muhasebe_category_identifier(product_3)
           expect(new_categorying.product_id).to be product_3.id
           expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe', definition: 'Elektrikli Süpürge').first.id
