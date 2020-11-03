@@ -1,5 +1,5 @@
 class InvoicesController < ApplicationController
-  before_action :set_invoice, only: [:show, :edit, :update, :destroy]
+  before_action :set_invoice, only: %i[show edit update destroy]
 
   # GET /invoices
   # GET /invoices.json
@@ -9,8 +9,7 @@ class InvoicesController < ApplicationController
 
   # GET /invoices/1
   # GET /invoices/1.json
-  def show
-  end
+  def show; end
 
   # GET /invoices/new
   def new
@@ -18,8 +17,7 @@ class InvoicesController < ApplicationController
   end
 
   # GET /invoices/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /invoices
   # POST /invoices.json
@@ -62,13 +60,15 @@ class InvoicesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_invoice
-      @invoice = Invoice.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def invoice_params
-      params.require(:invoice).permit(:invoice_number, :pen_number, :quantity, :tax_kdv, :tax_otv, :definition, :value_date, :sum, :product_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_invoice
+    @invoice = Invoice.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def invoice_params
+    params.require(:invoice).permit(:invoice_number, :pen_number, :quantity, :tax_kdv, :tax_otv, :definition,
+                                    :value_date, :sum, :product_id)
+  end
 end

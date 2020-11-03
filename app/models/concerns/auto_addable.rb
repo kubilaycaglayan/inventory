@@ -8,14 +8,14 @@ module AutoAddable
       product_array.each do |code_definition_pair|
         code = code_definition_pair.first
         definition = code_definition_pair.last
-        unless current_products.include? code
-          Product.create(
-            {
-              code: code,
-              definition: definition
-            }
-          )
-        end
+        next if current_products.include? code
+
+        Product.create(
+          {
+            code: code,
+            definition: definition
+          }
+        )
       end
     end
   end

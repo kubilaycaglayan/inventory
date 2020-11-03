@@ -5,7 +5,9 @@ RSpec.describe Payment, type: :model do
   let(:kind) { 'Card' }
   let(:bank) { 'HSBC' }
   let(:p1) { Product.create(code: 'WAT24480TR', definition: 'Washing Machine') }
-  let(:s1) { Sale.create(date: '2020-10-27', product_id: p1.id, return_amount: 1000, buy_price: 1000, sell_price: 1000) }
+  let(:s1) do
+    Sale.create(date: '2020-10-27', product_id: p1.id, return_amount: 1000, buy_price: 1000, sell_price: 1000)
+  end
   let(:payment1) { Payment.new(kind: kind, bank: bank, comission: comission, sale_id: s1.id) }
   let(:payment2) { Payment.new(kind: kind, bank: bank, comission: comission) }
   describe 'database validations' do

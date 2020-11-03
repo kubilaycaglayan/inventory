@@ -5,9 +5,15 @@ RSpec.describe Sale, type: :model do
   let(:buy_price) { 5500.00 }
   let(:sell_price) { 6200.50 }
   let(:p1) { Product.create(code: 'WAT24480TR', definition: 'Washing Machine') }
-  let(:sale1) { Sale.new(date: '2020-10-27', product_id: p1.id, return_amount: return_amount, buy_price: buy_price, sell_price: sell_price) }
+  let(:sale1) do
+    Sale.new(date: '2020-10-27', product_id: p1.id, return_amount: return_amount, buy_price: buy_price,
+             sell_price: sell_price)
+  end
   let(:sale2) { Sale.new(return_amount: return_amount, buy_price: buy_price, sell_price: sell_price) }
-  let(:sale3) { Sale.new(date: '2020-10-27', product_id: p1.id, return_amount: return_amount, buy_price: buy_price, sell_price: sell_price) }
+  let(:sale3) do
+    Sale.new(date: '2020-10-27', product_id: p1.id, return_amount: return_amount, buy_price: buy_price,
+             sell_price: sell_price)
+  end
 
   describe 'database validations' do
     describe 'general' do
@@ -61,7 +67,5 @@ RSpec.describe Sale, type: :model do
         expect(sale1.sell_price).not_to eq sell_price + 0.1
       end
     end
-
   end
-
 end

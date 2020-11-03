@@ -12,17 +12,14 @@ RSpec.describe Categorying, type: :model do
   let(:product_9) { Product.create(code: 'PBP6C2B80O', definition: 'definition') }
   let(:product_10) { Product.create(code: 'SMS46IW00T', definition: 'definition') }
 
-  let(:category_1) { Category.create(kind: 'Bosch', definition: 'Washing Machines', order_in_kind: 1)}
+  let(:category_1) { Category.create(kind: 'Bosch', definition: 'Washing Machines', order_in_kind: 1) }
 
   let(:categorying_1) { Categorying.new(category_id: category_1.id, product_id: product_1.id) }
   let(:categorying_2) { Categorying.new(category_id: category_1.id) }
   let(:categorying_3) { Categorying.new(product_id: product_1.id) }
 
-
-
   describe 'database validations' do
     it 'successfully creates a record' do
-
       expect(categorying_1.save).to be true
     end
 
@@ -62,7 +59,7 @@ RSpec.describe Categorying, type: :model do
   describe 'callbacks' do
     describe 'category assignment' do
       before(:all) do
-        require_relative '../../db/seeds.rb'
+        seed_categories
       end
 
       describe 'bosch category identifier' do
@@ -98,17 +95,18 @@ RSpec.describe Categorying, type: :model do
       end
 
       describe 'muhasebe category identifier' do
-
         it ' - Çamaşır Makinesi' do
           new_categorying = Categorying.muhasebe_category_identifier(product_1)
           expect(new_categorying.product_id).to be product_1.id
-          expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe', definition: 'Çamaşır Makinesi').first.id
+          expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe',
+                                                                   definition: 'Çamaşır Makinesi').first.id
         end
 
         it ' - Bulaşık Makinesi' do
           new_categorying = Categorying.muhasebe_category_identifier(product_10)
           expect(new_categorying.product_id).to be product_10.id
-          expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe', definition: 'Bulaşık Makinesi').first.id
+          expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe',
+                                                                   definition: 'Bulaşık Makinesi').first.id
         end
 
         it ' - Buzdolabı' do
@@ -144,15 +142,16 @@ RSpec.describe Categorying, type: :model do
         it ' - Küçük Ev Aleti' do
           new_categorying = Categorying.muhasebe_category_identifier(product_7)
           expect(new_categorying.product_id).to be product_7.id
-          expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe', definition: 'Küçük Ev Aleti').first.id
+          expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe',
+                                                                   definition: 'Küçük Ev Aleti').first.id
         end
 
         it ' - Elektrikli Süpürge' do
           new_categorying = Categorying.muhasebe_category_identifier(product_3)
           expect(new_categorying.product_id).to be product_3.id
-          expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe', definition: 'Elektrikli Süpürge').first.id
+          expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe',
+                                                                   definition: 'Elektrikli Süpürge').first.id
         end
-
       end
     end
   end

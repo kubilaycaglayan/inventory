@@ -50,7 +50,7 @@ RSpec.describe Product, type: :model do
           [product_code_3, definition_3]
         ]
         Product.create_product_if_not_exist(input)
-        expect(Set.new Product.pluck(:code)).to match Set.new [
+        expect(Set.new(Product.pluck(:code))).to match Set.new [
           product_code_1,
           product_code_2,
           product_code_3
@@ -67,7 +67,7 @@ RSpec.describe Product, type: :model do
           [product_code_3, definition_3]
         ]
         Product.create_product_if_not_exist(input)
-        expect(Set.new Product.pluck(:code)).to match Set.new [
+        expect(Set.new(Product.pluck(:code))).to match Set.new [
           product_code_1,
           product_code_2,
           product_code_3

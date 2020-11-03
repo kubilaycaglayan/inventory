@@ -1,21 +1,20 @@
 require 'rails_helper'
 
-RSpec.describe "products/edit", type: :view do
+RSpec.describe 'products/edit', type: :view do
   before(:each) do
     @product = assign(:product, Product.create!(
-      code: "MyString",
-      definition: "MyString"
-    ))
+                                  code: 'MyString',
+                                  definition: 'MyString'
+                                ))
   end
 
-  it "renders the edit product form" do
+  it 'renders the edit product form' do
     render
 
-    assert_select "form[action=?][method=?]", product_path(@product), "post" do
+    assert_select 'form[action=?][method=?]', product_path(@product), 'post' do
+      assert_select 'input[name=?]', 'product[code]'
 
-      assert_select "input[name=?]", "product[code]"
-
-      assert_select "input[name=?]", "product[definition]"
+      assert_select 'input[name=?]', 'product[definition]'
     end
   end
 end

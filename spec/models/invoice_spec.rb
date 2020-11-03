@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Invoice, type: :model do
-  let(:invoice_number) { 0001 }
-  let(:pen_number) { 010 }
+  let(:invoice_number) { 0o001 }
+  let(:pen_number) { 0o10 }
   let(:quantity) { 1 }
   let(:tax_kdv) { 18.0 }
   let(:tax_otv) { 15.5 }
@@ -18,31 +18,35 @@ RSpec.describe Invoice, type: :model do
   let(:product_code_unique_2) { 'product_unique_2' }
   let(:product_code_unique_3) { 'product_unique_3' }
 
-  let(:product_information) {{
-    invoice_number: invoice_number,
-    pen_number: pen_number,
-    quantity: quantity,
-    tax_kdv: tax_kdv,
-    tax_otv: tax_otv,
-    definition: definition,
-    value_date: value_date,
-    sum: sum,
-    product_code: product_code_1,
-    invoice_date: invoice_date
-  }}
+  let(:product_information) do
+    {
+      invoice_number: invoice_number,
+      pen_number: pen_number,
+      quantity: quantity,
+      tax_kdv: tax_kdv,
+      tax_otv: tax_otv,
+      definition: definition,
+      value_date: value_date,
+      sum: sum,
+      product_code: product_code_1,
+      invoice_date: invoice_date
+    }
+  end
 
-  let(:product_information_1) {{
-    invoice_number: invoice_number,
-    pen_number: pen_number,
-    quantity: quantity,
-    tax_kdv: tax_kdv,
-    tax_otv: tax_otv,
-    definition: definition,
-    value_date: value_date,
-    sum: sum,
-    product_code: product_code_1,
-    invoice_date: invoice_date
-  }}
+  let(:product_information_1) do
+    {
+      invoice_number: invoice_number,
+      pen_number: pen_number,
+      quantity: quantity,
+      tax_kdv: tax_kdv,
+      tax_otv: tax_otv,
+      definition: definition,
+      value_date: value_date,
+      sum: sum,
+      product_code: product_code_1,
+      invoice_date: invoice_date
+    }
+  end
 
   let(:product_information_2) do
     information = product_information_1.clone
@@ -107,22 +111,70 @@ RSpec.describe Invoice, type: :model do
   end
 
   let(:invoice1) { Invoice.new(product_information) }
-  let(:invoice2) { Invoice.create({ invoice_date: '2020-10-1', invoice_number: 2, pen_number: 2, quantity: 2, tax_kdv: 2, tax_otv: 2, definition: definition, value_date: value_date, sum: 2, product_code: product_code_unique_1 }) }
-  let(:invoice12) { Invoice.create({ invoice_date: '2020-10-1', invoice_number: 12, pen_number: 2, quantity: 2, tax_kdv: 2, tax_otv: 2, definition: definition, value_date: value_date, sum: 2, product_code: product_code_unique_2 }) }
-  let(:invoice3) { Invoice.create({ invoice_date: '2020-10-2', invoice_number: 3, pen_number: 3, quantity: 3, tax_kdv: 3, tax_otv: 3, definition: definition, value_date: value_date, sum: 3, product_code: product_code_unique_1 }) }
-  let(:invoice13) { Invoice.create({ invoice_date: '2020-10-2', invoice_number: 13, pen_number: 3, quantity: 3, tax_kdv: 3, tax_otv: 3, definition: definition, value_date: value_date, sum: 3, product_code: product_code_unique_2 }) }
-  let(:invoice4) { Invoice.create({ invoice_date: '2020-10-3', invoice_number: 4, pen_number: 4, quantity: 4, tax_kdv: 4, tax_otv: 4, definition: definition, value_date: value_date, sum: 4, product_code: product_code_unique_1 }) }
-  let(:invoice14) { Invoice.create({ invoice_date: '2020-10-3', invoice_number: 14, pen_number: 4, quantity: 4, tax_kdv: 4, tax_otv: 4, definition: definition, value_date: value_date, sum: 4, product_code: product_code_unique_2 }) }
-  let(:invoice5) { Invoice.create({ invoice_date: '2020-10-4', invoice_number: 5, pen_number: 5, quantity: 5, tax_kdv: 5, tax_otv: 5, definition: definition, value_date: value_date, sum: 5, product_code: product_code_unique_1 }) }
-  let(:invoice15) { Invoice.create({ invoice_date: '2020-10-4', invoice_number: 15, pen_number: 5, quantity: 5, tax_kdv: 5, tax_otv: 5, definition: definition, value_date: value_date, sum: 5, product_code: product_code_unique_2 }) }
-  let(:invoice6) { Invoice.create({ invoice_date: '2020-10-5', invoice_number: 6, pen_number: 6, quantity: 6, tax_kdv: 6, tax_otv: 6, definition: definition, value_date: value_date, sum: 6000, product_code: product_code_unique_1 }) }
-  let(:invoice16) { Invoice.create({ invoice_date: '2020-10-5', invoice_number: 16, pen_number: 6, quantity: 6, tax_kdv: 6, tax_otv: 6, definition: definition, value_date: value_date, sum: 6000, product_code: product_code_unique_2 }) }
-  let(:invoice7) { Invoice.create({ invoice_date: '2020-10-6', invoice_number: 7, pen_number: 7, quantity: 4, tax_kdv: 7, tax_otv: 7, definition: definition, value_date: value_date, sum: 7, product_code: product_code_unique_1 }) }
-  let(:invoice17) { Invoice.create({ invoice_date: '2020-10-6', invoice_number: 17, pen_number: 7, quantity: 4, tax_kdv: 7, tax_otv: 7, definition: definition, value_date: value_date, sum: 7, product_code: product_code_unique_2 }) }
-  let(:invoice8) { Invoice.create({ invoice_date: '2020-10-7', invoice_number: 8, pen_number: 8, quantity: 4, tax_kdv: 8, tax_otv: 8, definition: definition, value_date: value_date, sum: 400, product_code: product_code_unique_1 }) }
-  let(:invoice18) { Invoice.create({ invoice_date: '2020-10-7', invoice_number: 18, pen_number: 8, quantity: 4, tax_kdv: 8, tax_otv: 8, definition: definition, value_date: value_date, sum: 400, product_code: product_code_unique_2 }) }
-  let(:invoice9) { Invoice.create({ invoice_date: '2020-10-8', invoice_number: 9, pen_number: 9, quantity: 4, tax_kdv: 9, tax_otv: 9, definition: definition, value_date: value_date, sum: 500, product_code: product_code_unique_1 }) }
-  let(:invoice19) { Invoice.create({ invoice_date: '2020-10-8', invoice_number: 19, pen_number: 9, quantity: 4, tax_kdv: 9, tax_otv: 9, definition: definition, value_date: value_date, sum: 500, product_code: product_code_unique_2 }) }
+  let(:invoice2) do
+    Invoice.create({ invoice_date: '2020-10-1', invoice_number: 2, pen_number: 2, quantity: 2, tax_kdv: 2, tax_otv: 2,
+                     definition: definition, value_date: value_date, sum: 2, product_code: product_code_unique_1 })
+  end
+  let(:invoice12) do
+    Invoice.create({ invoice_date: '2020-10-1', invoice_number: 12, pen_number: 2, quantity: 2, tax_kdv: 2, tax_otv: 2,
+                     definition: definition, value_date: value_date, sum: 2, product_code: product_code_unique_2 })
+  end
+  let(:invoice3) do
+    Invoice.create({ invoice_date: '2020-10-2', invoice_number: 3, pen_number: 3, quantity: 3, tax_kdv: 3, tax_otv: 3,
+                     definition: definition, value_date: value_date, sum: 3, product_code: product_code_unique_1 })
+  end
+  let(:invoice13) do
+    Invoice.create({ invoice_date: '2020-10-2', invoice_number: 13, pen_number: 3, quantity: 3, tax_kdv: 3, tax_otv: 3,
+                     definition: definition, value_date: value_date, sum: 3, product_code: product_code_unique_2 })
+  end
+  let(:invoice4) do
+    Invoice.create({ invoice_date: '2020-10-3', invoice_number: 4, pen_number: 4, quantity: 4, tax_kdv: 4, tax_otv: 4,
+                     definition: definition, value_date: value_date, sum: 4, product_code: product_code_unique_1 })
+  end
+  let(:invoice14) do
+    Invoice.create({ invoice_date: '2020-10-3', invoice_number: 14, pen_number: 4, quantity: 4, tax_kdv: 4, tax_otv: 4,
+                     definition: definition, value_date: value_date, sum: 4, product_code: product_code_unique_2 })
+  end
+  let(:invoice5) do
+    Invoice.create({ invoice_date: '2020-10-4', invoice_number: 5, pen_number: 5, quantity: 5, tax_kdv: 5, tax_otv: 5,
+                     definition: definition, value_date: value_date, sum: 5, product_code: product_code_unique_1 })
+  end
+  let(:invoice15) do
+    Invoice.create({ invoice_date: '2020-10-4', invoice_number: 15, pen_number: 5, quantity: 5, tax_kdv: 5, tax_otv: 5,
+                     definition: definition, value_date: value_date, sum: 5, product_code: product_code_unique_2 })
+  end
+  let(:invoice6) do
+    Invoice.create({ invoice_date: '2020-10-5', invoice_number: 6, pen_number: 6, quantity: 6, tax_kdv: 6, tax_otv: 6,
+                     definition: definition, value_date: value_date, sum: 6000, product_code: product_code_unique_1 })
+  end
+  let(:invoice16) do
+    Invoice.create({ invoice_date: '2020-10-5', invoice_number: 16, pen_number: 6, quantity: 6, tax_kdv: 6, tax_otv: 6,
+                     definition: definition, value_date: value_date, sum: 6000, product_code: product_code_unique_2 })
+  end
+  let(:invoice7) do
+    Invoice.create({ invoice_date: '2020-10-6', invoice_number: 7, pen_number: 7, quantity: 4, tax_kdv: 7, tax_otv: 7,
+                     definition: definition, value_date: value_date, sum: 7, product_code: product_code_unique_1 })
+  end
+  let(:invoice17) do
+    Invoice.create({ invoice_date: '2020-10-6', invoice_number: 17, pen_number: 7, quantity: 4, tax_kdv: 7, tax_otv: 7,
+                     definition: definition, value_date: value_date, sum: 7, product_code: product_code_unique_2 })
+  end
+  let(:invoice8) do
+    Invoice.create({ invoice_date: '2020-10-7', invoice_number: 8, pen_number: 8, quantity: 4, tax_kdv: 8, tax_otv: 8,
+                     definition: definition, value_date: value_date, sum: 400, product_code: product_code_unique_1 })
+  end
+  let(:invoice18) do
+    Invoice.create({ invoice_date: '2020-10-7', invoice_number: 18, pen_number: 8, quantity: 4, tax_kdv: 8, tax_otv: 8,
+                     definition: definition, value_date: value_date, sum: 400, product_code: product_code_unique_2 })
+  end
+  let(:invoice9) do
+    Invoice.create({ invoice_date: '2020-10-8', invoice_number: 9, pen_number: 9, quantity: 4, tax_kdv: 9, tax_otv: 9,
+                     definition: definition, value_date: value_date, sum: 500, product_code: product_code_unique_1 })
+  end
+  let(:invoice19) do
+    Invoice.create({ invoice_date: '2020-10-8', invoice_number: 19, pen_number: 9, quantity: 4, tax_kdv: 9, tax_otv: 9,
+                     definition: definition, value_date: value_date, sum: 500, product_code: product_code_unique_2 })
+  end
 
   let(:group1) do
     invoice2
@@ -155,7 +207,6 @@ RSpec.describe Invoice, type: :model do
     end
 
     describe 'data types' do
-
       describe 'invoice_number' do
         it 'has an integer data type' do
           expect(invoice1.invoice_number).to be_an_instance_of Integer
@@ -228,8 +279,8 @@ RSpec.describe Invoice, type: :model do
         end
 
         it 'can only store up to 5 digits' do
-          inv = Invoice.new(tax_kdv: 12345.67)
-          expect(inv.tax_kdv).to eq 12346
+          inv = Invoice.new(tax_kdv: 12_345.67)
+          expect(inv.tax_kdv).to eq 12_346
         end
 
         it 'can only store up to 2 decimals' do
@@ -270,7 +321,7 @@ RSpec.describe Invoice, type: :model do
         end
 
         it 'successfully stores the value - falsy' do
-          expect(invoice1.definition).not_to be definition + '1'
+          expect(invoice1.definition).not_to be "#{definition}1"
         end
       end
 
@@ -324,7 +375,7 @@ RSpec.describe Invoice, type: :model do
         end
 
         it 'successfully stores the value - falsy' do
-          expect(invoice1.product_code).not_to be product_code_1 + '1'
+          expect(invoice1.product_code).not_to be "#{product_code_1}1"
         end
       end
     end
@@ -350,18 +401,18 @@ RSpec.describe Invoice, type: :model do
 
     it 'inserts multiple records' do
       Invoice.insert_all([
-        product_information_with_timestamps_unique_1,
-        product_information_with_timestamps_unique_2,
-        product_information_with_timestamps_unique_3
-      ], returning: %w[ product_code definition ])
+                           product_information_with_timestamps_unique_1,
+                           product_information_with_timestamps_unique_2,
+                           product_information_with_timestamps_unique_3
+                         ], returning: %w[product_code definition])
 
-      expect(Set.new Invoice.pluck(:product_code)).to eq Set.new [
+      expect(Set.new(Invoice.pluck(:product_code))).to eq Set.new [
         product_code_unique_1,
         product_code_unique_2,
         product_code_unique_3
       ]
 
-      expect(Set.new Invoice.pluck(:product_code)).not_to eq Set.new [
+      expect(Set.new(Invoice.pluck(:product_code))).not_to eq Set.new [
         product_code_unique_1,
         product_code_unique_2
       ]
@@ -369,15 +420,15 @@ RSpec.describe Invoice, type: :model do
 
     it 'skips the non uniques and inserts valid records with .insert_all' do
       Invoice.insert_all([
-        product_information_with_timestamps_1,
-        product_information_with_timestamps_2,
-        product_information_with_timestamps_3,
-        product_information_with_timestamps_unique_1,
-        product_information_with_timestamps_unique_2,
-        product_information_with_timestamps_unique_3
-      ])
+                           product_information_with_timestamps_1,
+                           product_information_with_timestamps_2,
+                           product_information_with_timestamps_3,
+                           product_information_with_timestamps_unique_1,
+                           product_information_with_timestamps_unique_2,
+                           product_information_with_timestamps_unique_3
+                         ])
 
-      expect(Set.new Invoice.pluck('product_code')).to eq Set.new [
+      expect(Set.new(Invoice.pluck('product_code'))).to eq Set.new [
         product_information_with_timestamps_1['product_code'],
         product_information_with_timestamps_unique_1['product_code'],
         product_information_with_timestamps_unique_2['product_code'],
@@ -392,7 +443,7 @@ RSpec.describe Invoice, type: :model do
 
       product_information_with_timestamps_2['id'] = record.id
 
-      result = Invoice.upsert(product_information_with_timestamps_2)
+      Invoice.upsert(product_information_with_timestamps_2)
       expect(Invoice.find(record['id']).product_code).to eq product_code_2
     end
 
@@ -426,7 +477,7 @@ RSpec.describe Invoice, type: :model do
       end
 
       it 'do nothing if it already exists' do
-        Product.create({code: product_code_1})
+        Product.create({ code: product_code_1 })
         expect(Product.count).to be 1
         Invoice.create(product_information)
         expect(Product.count).to be 1
@@ -434,57 +485,54 @@ RSpec.describe Invoice, type: :model do
       end
 
       it 'bulk operations: insert_all, 1 exists, insert 2' do
-        Product.create({code: product_code_unique_1})
+        Product.create({ code: product_code_unique_1 })
         expect(Product.count).to be 1
         Invoice.insert_all([
-          product_information_with_timestamps_unique_1,
-          product_information_with_timestamps_unique_2,
-          product_information_with_timestamps_unique_3
-        ],
-        returning: %w[ product_code definition ]
-      )
+                             product_information_with_timestamps_unique_1,
+                             product_information_with_timestamps_unique_2,
+                             product_information_with_timestamps_unique_3
+                           ],
+                           returning: %w[product_code definition])
         expect(Product.count).to be 3
-        expect(Set.new Product.pluck(:code)).to eq Set.new [
+        expect(Set.new(Product.pluck(:code))).to eq Set.new [
           product_code_unique_1,
           product_code_unique_2,
-          product_code_unique_3,
+          product_code_unique_3
         ]
       end
 
       it 'bulk operations: insert_all, all exists' do
-        Product.create({code: product_code_unique_1})
-        Product.create({code: product_code_unique_2})
-        Product.create({code: product_code_unique_3})
+        Product.create({ code: product_code_unique_1 })
+        Product.create({ code: product_code_unique_2 })
+        Product.create({ code: product_code_unique_3 })
         expect(Product.count).to be 3
         Invoice.insert_all([
-          product_information_with_timestamps_unique_1,
-          product_information_with_timestamps_unique_2,
-          product_information_with_timestamps_unique_3
-        ],
-        returning: %w[ product_code definition ]
-      )
+                             product_information_with_timestamps_unique_1,
+                             product_information_with_timestamps_unique_2,
+                             product_information_with_timestamps_unique_3
+                           ],
+                           returning: %w[product_code definition])
         expect(Product.count).to be 3
-        expect(Set.new Product.pluck(:code)).to eq Set.new [
+        expect(Set.new(Product.pluck(:code))).to eq Set.new [
           product_code_unique_1,
           product_code_unique_2,
-          product_code_unique_3,
+          product_code_unique_3
         ]
       end
 
       it 'bulk operations: insert_all, none exists, insert 3' do
         expect(Product.count).to be 0
         Invoice.insert_all([
-          product_information_with_timestamps_unique_1,
-          product_information_with_timestamps_unique_2,
-          product_information_with_timestamps_unique_3
-        ],
-        returning: %w[ product_code definition ]
-      )
+                             product_information_with_timestamps_unique_1,
+                             product_information_with_timestamps_unique_2,
+                             product_information_with_timestamps_unique_3
+                           ],
+                           returning: %w[product_code definition])
         expect(Product.count).to be 3
-        expect(Set.new Product.pluck(:code)).to eq Set.new [
+        expect(Set.new(Product.pluck(:code))).to eq Set.new [
           product_code_unique_1,
           product_code_unique_2,
-          product_code_unique_3,
+          product_code_unique_3
         ]
       end
     end
@@ -495,12 +543,12 @@ RSpec.describe Invoice, type: :model do
       it 'returns the nth record from the last for a given product' do
         group1
 
-        expect(Invoice.fifo product_code_unique_1, 13).to eq invoice6
+        expect(Invoice.fifo(product_code_unique_1, 13)).to eq invoice6
       end
 
       it 'returns the nth record from the last for a given product - falsy' do
         group1
-        expect(Invoice.fifo product_code_unique_1, 13).not_to eq invoice5
+        expect(Invoice.fifo(product_code_unique_1, 13)).not_to eq invoice5
       end
     end
 

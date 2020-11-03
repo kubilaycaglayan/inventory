@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe Category, type: :model do
   let(:product_1) { Product.create(code: 'WAT24480TR', definition: 'definition') }
-  let(:category_1) { Category.create(kind: 'Bosch', definition: 'Washing Machines', order_in_kind: 1)}
-  let(:category_2) { Category.create(kind: 'Bosch', definition: 'Washing Machines')}
+  let(:category_1) { Category.create(kind: 'Bosch', definition: 'Washing Machines', order_in_kind: 1) }
+  let(:category_2) { Category.create(kind: 'Bosch', definition: 'Washing Machines') }
   let(:category_info_1) { { kind: 'Bosch', definition: 'Washing Machines' } }
   let(:category_info_2) { { kind: 'Muhasebe', definition: 'Washing Machines' } }
 
-  let(:category_seed) { require_relative '../../db/seeds.rb' }
+  let(:category_seed) { require_relative '../../db/seeds' }
 
   describe 'database validations' do
     it 'successfully creates a record' do
@@ -42,7 +42,7 @@ RSpec.describe Category, type: :model do
 
     describe 'seeding' do
       it 'successfullt seeds the initial categories' do
-        category_seed
+        seed_categories
         expect(Category.where(kind: 'Bosch').count).to be 6
         expect(Category.where(kind: 'Bosch').count).not_to be 0
         expect(Category.where(kind: 'Muhasebe').count).to be 9

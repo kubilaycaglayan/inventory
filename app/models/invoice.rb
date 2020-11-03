@@ -23,12 +23,12 @@ class Invoice < ApplicationRecord
         status: false,
         message: '',
         invoice: nil,
-        value: nil,
+        value: nil
       }
 
       fifo_result = fifo(product_code, nth)
 
-      if fifo_result.class == String
+      if fifo_result.instance_of?(String)
         result[:message] = fifo_result
       else
         result[:status] = true
@@ -47,7 +47,6 @@ class Invoice < ApplicationRecord
       return 'Invoice cannot be found' if nth > invoices.sum(:quantity)
 
       invoices.each do |invoice|
-        target = invoice
         sum += invoice.quantity
         return invoice if sum >= nth
       end
@@ -57,7 +56,8 @@ class Invoice < ApplicationRecord
   end
 
   private
+
   def check_new_product
-    Product.create_product_if_not_exist([[self.product_code, self.definition]])
+    Product.create_product_if_not_exist([[product_code, definition]])
   end
 end
