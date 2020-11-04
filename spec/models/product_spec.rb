@@ -77,4 +77,30 @@ RSpec.describe Product, type: :model do
       end
     end
   end
+
+  describe 'associations' do
+    let(:product1) { Product.create(code: product_code1, definition: definition1) }
+
+    it 'has many categoryings' do
+      product1
+      expect(Product.first).to respond_to(:categoryings)
+    end
+
+    it 'has many categories' do
+      product1
+      expect(Product.first).to respond_to(:categories)
+    end
+
+    describe 'categories' do
+      byebug
+      it 'returns the categories of a product' do
+        expect(product1.categories).to match [category1, category2]
+      end
+    end
+
+    describe 'categoryings' do
+      it 'returns the categoryings of a product' do
+      end
+    end
+  end
 end

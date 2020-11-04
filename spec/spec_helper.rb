@@ -13,6 +13,7 @@
 # it.
 #
 require_relative '../db/seeds/categories'
+require_relative '../db/seeds/products'
 system('clear')
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
