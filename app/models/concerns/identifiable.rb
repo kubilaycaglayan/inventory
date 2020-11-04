@@ -10,12 +10,12 @@ module Identifiable
         muhasebe: muhasebe_category_identifier(product)
       }
 
-      Categorying.create(product_id: product.code, category_id: categories['bosch'].id)
-      Categorying.create(product_id: product.code, category_id: categories['muhasebe'].id)
+      Categorying.create(product_id: product.id, category_id: categories[:bosch].id)
+      Categorying.create(product_id: product.id, category_id: categories[:muhasebe].id)
     end
 
     def bosch_category_identifier(product)
-      order_in_kind = case product.code.first
+      order_in_kind = case product.code.first.upcase
                       when 'A'
                         1
                       when 'B'
@@ -56,7 +56,7 @@ module Identifiable
     end
 
     def muhasebe_category_identifier(product)
-      order_in_kind = case product.code.first
+      order_in_kind = case product.code.first.upcase
                       when 'A'
                         8
                       when 'B'
@@ -92,7 +92,6 @@ module Identifiable
                       else
                         0
                       end
-
       Categorying.create(product_id: product.id,
                          category_id: Category.find_by(kind: 'Muhasebe', order_in_kind: order_in_kind).id)
     end

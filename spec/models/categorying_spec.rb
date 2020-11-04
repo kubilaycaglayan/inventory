@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Categorying, type: :model do
+  before(:all) do
+    seed_categories
+  end
+
   let(:product_1) { Product.create(code: 'WAT24480TR', definition: 'definition') }
   let(:product_2) { Product.create(code: '43PFS5302', definition: 'definition') }
   let(:product_3) { Product.create(code: 'BGB7330', definition: 'definition') }
@@ -52,106 +56,6 @@ RSpec.describe Categorying, type: :model do
         expect(categorying_2.save).to be false
         categorying_2.product_id = 4
         expect { categorying_2.save! }.to raise_error ActiveRecord::RecordInvalid
-      end
-    end
-  end
-
-  describe 'callbacks' do
-    describe 'category assignment' do
-      before(:all) do
-        seed_categories
-      end
-
-      describe 'bosch category identifier' do
-        it ' - solo' do
-          new_categorying = Categorying.bosch_category_identifier(product_1)
-          expect(new_categorying.product_id).to be product_1.id
-          expect(new_categorying.category_id).to be Category.where(kind: 'Bosch', definition: 'Solo').first.id
-        end
-
-        it ' - solo' do
-          new_categorying = Categorying.bosch_category_identifier(product_1)
-          expect(new_categorying.product_id).to be product_1.id
-          expect(new_categorying.category_id).to be Category.where(kind: 'Bosch', definition: 'Solo').first.id
-        end
-
-        it ' - televizyon' do
-          new_categorying = Categorying.bosch_category_identifier(product_2)
-          expect(new_categorying.product_id).to be product_2.id
-          expect(new_categorying.category_id).to be Category.where(kind: 'Bosch', definition: 'Televizyon').first.id
-        end
-
-        it ' - kea' do
-          new_categorying = Categorying.bosch_category_identifier(product_7)
-          expect(new_categorying.product_id).to be product_7.id
-          expect(new_categorying.category_id).to be Category.where(kind: 'Bosch', definition: 'Küçük Ev Aleti').first.id
-        end
-
-        it ' - Ankastre' do
-          new_categorying = Categorying.bosch_category_identifier(product_5)
-          expect(new_categorying.product_id).to be product_5.id
-          expect(new_categorying.category_id).to be Category.where(kind: 'Bosch', definition: 'Ankastre').first.id
-        end
-      end
-
-      describe 'muhasebe category identifier' do
-        it ' - Çamaşır Makinesi' do
-          new_categorying = Categorying.muhasebe_category_identifier(product_1)
-          expect(new_categorying.product_id).to be product_1.id
-          expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe',
-                                                                   definition: 'Çamaşır Makinesi').first.id
-        end
-
-        it ' - Bulaşık Makinesi' do
-          new_categorying = Categorying.muhasebe_category_identifier(product_10)
-          expect(new_categorying.product_id).to be product_10.id
-          expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe',
-                                                                   definition: 'Bulaşık Makinesi').first.id
-        end
-
-        it ' - Buzdolabı' do
-          new_categorying = Categorying.muhasebe_category_identifier(product_6)
-          expect(new_categorying.product_id).to be product_6.id
-          expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe', definition: 'Buzdolabı').first.id
-        end
-
-        it ' - Fırın' do
-          new_categorying = Categorying.muhasebe_category_identifier(product_5)
-          expect(new_categorying.product_id).to be product_5.id
-          expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe', definition: 'Fırın').first.id
-        end
-
-        it ' - Ocak' do
-          new_categorying = Categorying.muhasebe_category_identifier(product_9)
-          expect(new_categorying.product_id).to be product_9.id
-          expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe', definition: 'Ocak').first.id
-        end
-
-        it ' - Davlumbaz' do
-          new_categorying = Categorying.muhasebe_category_identifier(product_4)
-          expect(new_categorying.product_id).to be product_4.id
-          expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe', definition: 'Davlumbaz').first.id
-        end
-
-        it ' - Televizyon' do
-          new_categorying = Categorying.muhasebe_category_identifier(product_2)
-          expect(new_categorying.product_id).to be product_2.id
-          expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe', definition: 'Televizyon').first.id
-        end
-
-        it ' - Küçük Ev Aleti' do
-          new_categorying = Categorying.muhasebe_category_identifier(product_7)
-          expect(new_categorying.product_id).to be product_7.id
-          expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe',
-                                                                   definition: 'Küçük Ev Aleti').first.id
-        end
-
-        it ' - Elektrikli Süpürge' do
-          new_categorying = Categorying.muhasebe_category_identifier(product_3)
-          expect(new_categorying.product_id).to be product_3.id
-          expect(new_categorying.category_id).to be Category.where(kind: 'Muhasebe',
-                                                                   definition: 'Elektrikli Süpürge').first.id
-        end
       end
     end
   end
