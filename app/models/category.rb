@@ -1,5 +1,6 @@
 class Category < ApplicationRecord
   before_create :increase_order_in_kind
+  has_many :categoryings, dependent: :destroy
 
   private
 

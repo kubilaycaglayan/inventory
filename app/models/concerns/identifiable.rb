@@ -10,8 +10,8 @@ module Identifiable
         muhasebe: muhasebe_category_identifier(product)
       }
 
-      Categorying.create(product_id: product.id, category_id: categories[:bosch].id)
-      Categorying.create(product_id: product.id, category_id: categories[:muhasebe].id)
+      Categorying.create(product_id: product.id, category_id: categories[:bosch].id) if categories[:bosch]
+      Categorying.create(product_id: product.id, category_id: categories[:muhasebe].id) if categories[:muhasebe]
     end
 
     def bosch_category_identifier(product)
@@ -33,11 +33,11 @@ module Identifiable
                       when 'M'
                         3
                       when 'N'
-                        0
+                        return
                       when 'P'
                         2
                       when 'Q'
-                        0
+                        return
                       when 'R'
                         1
                       when 'S'
@@ -49,7 +49,7 @@ module Identifiable
                       when /[0-9]/
                         6
                       else
-                        0
+                        return
                       end
       Categorying.create(product_id: product.id,
                          category_id: Category.find_by(kind: 'Bosch', order_in_kind: order_in_kind).id)
@@ -78,7 +78,7 @@ module Identifiable
                       when 'P'
                         5
                       when 'Q'
-                        0
+                        return
                       when 'R'
                         8
                       when 'S'
@@ -90,7 +90,7 @@ module Identifiable
                       when /[0-9]/
                         7
                       else
-                        0
+                        return
                       end
       Categorying.create(product_id: product.id,
                          category_id: Category.find_by(kind: 'Muhasebe', order_in_kind: order_in_kind).id)

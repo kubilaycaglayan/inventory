@@ -7,3 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 require_relative './seeds/categories'
+require_relative './seeds/invoices'
+require_relative './seeds/paths'
+invoices_path = '/home/kubilay/Documents/Archive/invoices.csv'
+Category.destroy_all
+Invoice.destroy_all
+seed_categories
+seed_invoices(invoices_path)
