@@ -9,6 +9,8 @@ RSpec.describe Category, type: :model do
 
   let(:category_seed) { require_relative '../../db/seeds' }
 
+  before(:all) { Category.destroy_all }
+
   describe 'database validations' do
     it 'successfully creates a record' do
       expect(category_1.save).to be true

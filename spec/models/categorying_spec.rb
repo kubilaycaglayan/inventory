@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Categorying, type: :model do
-  before(:all) do
-    seed_categories
-  end
-
   let(:product_1) { Product.create(code: 'WAT24480TR', definition: 'definition') }
   let(:product_2) { Product.create(code: '43PFS5302', definition: 'definition') }
   let(:product_3) { Product.create(code: 'BGB7330', definition: 'definition') }

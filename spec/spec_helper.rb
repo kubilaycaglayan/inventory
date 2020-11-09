@@ -106,6 +106,7 @@ RSpec.configure do |config|
 
   config.before(:all) do
     DatabaseCleaner.start
+    seed_categories
   end
 
   config.after(:all) do

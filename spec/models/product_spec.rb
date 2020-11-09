@@ -24,10 +24,6 @@ RSpec.describe Product, type: :model do
   let(:product_9) { Product.create(code: 'PBP6C2B80O', definition: 'definition') }
   let(:product_10) { Product.create(code: 'SMS46IW00T', definition: 'definition') }
 
-  before(:all) do
-    seed_categories
-  end
-
   describe 'database validations' do
     it 'creates a product with code and definition' do
       expect(p1.save).to be true
