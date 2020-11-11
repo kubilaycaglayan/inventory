@@ -215,16 +215,22 @@ RSpec.describe Product, type: :model do
   end
 
   describe 'associations' do
-    let(:product1) { Product.create(code: product_code1, definition: definition1) }
+    let(:product1) { Product.create(code: product_code_1, definition: definition_1) }
 
     it 'has many categoryings' do
-      product1
-      # expect(Product.first).to respond_to(:categoryings)
+      expect(product1).to respond_to(:categoryings)
+    end
+
+    it 'has many categoryings - falsy' do
+      expect(product1).not_to respond_to(:categoryingss)
     end
 
     it 'has many categories' do
-      product1
-      # expect(Product.first).to respond_to(:categories)
+      expect(product1).to respond_to(:categories)
+    end
+
+    it 'has many categories - falsy' do
+      expect(product1).not_to respond_to(:categoriess)
     end
 
     describe 'categories' do

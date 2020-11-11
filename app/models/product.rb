@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   after_create :assign_categorying_callback, :create_outstanding
 
   has_many :categoryings
+  has_many :categories, through: :categoryings
 
   private
 
