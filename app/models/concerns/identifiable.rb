@@ -9,9 +9,6 @@ module Identifiable
         bosch: bosch_category_identifier(product),
         muhasebe: muhasebe_category_identifier(product)
       }
-
-      Categorying.create(product_id: product.id, category_id: categories[:bosch].id) if categories[:bosch]
-      Categorying.create(product_id: product.id, category_id: categories[:muhasebe].id) if categories[:muhasebe]
     end
 
     def bosch_category_identifier(product)

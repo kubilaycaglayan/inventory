@@ -7,6 +7,12 @@ class Product < ApplicationRecord
   has_many :categoryings
   has_many :categories, through: :categoryings
 
+  class << self
+    def sku(code)
+      Product.find_by(code: code)
+    end
+  end
+
   private
 
   def assign_categorying_callback

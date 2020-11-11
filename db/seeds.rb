@@ -15,6 +15,7 @@ require_relative './seeds/paths'
 include FilePaths
 
 Category.destroy_all
+Categorying.destroy_all
 Product.destroy_all
 Invoice.destroy_all
 Sale.destroy_all

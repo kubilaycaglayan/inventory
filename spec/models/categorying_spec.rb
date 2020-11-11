@@ -36,7 +36,7 @@ RSpec.describe Categorying, type: :model do
 
       it 'category must exist' do
         expect(categorying_3.save).to be false
-        categorying_3.category_id = 4
+        categorying_3.category_id = Category.last.id + 1
         expect { categorying_3.save! }.to raise_error ActiveRecord::RecordInvalid
       end
     end
