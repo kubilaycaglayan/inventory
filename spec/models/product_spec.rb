@@ -264,5 +264,27 @@ RSpec.describe Product, type: :model do
         expect(product_2.categoryings).not_to match categoryings_1
       end
     end
+
+    describe 'sales' do
+      it 'has many sales' do
+        expect(product_1).to respond_to(:sales)
+      end
+
+      it 'has many sales - falsy' do
+        expect(product_1).not_to respond_to(:saless)
+      end
+
+      it 'returns the sales records of a product' do
+        sale_1 = Sale.create(product_id: product_1.id)
+        sale_2 = Sale.create(product_id: product_1.id)
+        expect(product_1.sales).to match [sale_1, sale_2]
+      end
+
+      it 'returns the sales records of a product - falsy' do
+        sale_1 = Sale.create(product_id: product_1.id)
+        sale_2 = Sale.create(product_id: product_2.id)
+        expect(product_1.sales).not_to match [sale_1, sale_2]
+      end
+    end
   end
 end

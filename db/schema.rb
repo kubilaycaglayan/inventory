@@ -78,8 +78,8 @@ ActiveRecord::Schema.define(version: 2020_10_26_124321) do
     t.datetime "date"
     t.bigint "product_id", null: false
     t.decimal "return_amount", precision: 20, scale: 2
-    t.decimal "buy_price", precision: 20, scale: 2, null: false
-    t.decimal "sell_price", precision: 20, scale: 2, null: false
+    t.decimal "buy_price", precision: 20, scale: 2, default: "0.0"
+    t.decimal "sell_price", precision: 20, scale: 2, default: "0.0"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_id"], name: "index_sales_on_product_id"

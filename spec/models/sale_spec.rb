@@ -67,5 +67,23 @@ RSpec.describe Sale, type: :model do
         expect(sale1.sell_price).not_to eq sell_price + 0.1
       end
     end
+
+    describe 'default values' do
+      it 'defaults the buy price to 0' do
+        expect(Sale.create(product_id: p1.id).buy_price).to eq 0
+      end
+
+      it 'defaults the buy price to 0 - falsy' do
+        expect(Sale.create(product_id: p1.id).buy_price).not_to eq 0.1
+      end
+
+      it 'defaults the sell price to 0' do
+        expect(Sale.create(product_id: p1.id).sell_price).to eq 0
+      end
+
+      it 'defaults the sell price to 0 - falsy' do
+        expect(Sale.create(product_id: p1.id).sell_price).not_to eq 0.1
+      end
+    end
   end
 end

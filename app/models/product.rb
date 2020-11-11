@@ -7,6 +7,8 @@ class Product < ApplicationRecord
   has_many :categoryings
   has_many :categories, through: :categoryings
 
+  has_many :sales
+
   class << self
     def sku(code)
       Product.find_by(code: code)
