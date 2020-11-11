@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2020_10_26_124321) do
 
   create_table "outstandings", force: :cascade do |t|
     t.bigint "product_id", null: false
-    t.integer "value"
+    t.integer "value", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_id"], name: "index_outstandings_on_product_id"

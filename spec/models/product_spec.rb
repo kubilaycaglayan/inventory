@@ -183,6 +183,23 @@ RSpec.describe Product, type: :model do
         end
       end
     end
+
+    describe 'outstanding trigger' do
+      it 'automatically creates an outstanding' do
+        product_1
+        expect(Outstanding.last.product_id).to eq product_1.id
+      end
+
+      it 'creates an outstanding with default value 0' do
+        product_1
+        expect(Outstanding.last.value).to eq 0
+      end
+
+      it 'automatically creates an outstanding - falsy' do
+        product_1
+        expect(Outstanding.last.product_id).not_to eq product_1.id + 1
+      end
+    end
   end
 
   describe 'associations' do
