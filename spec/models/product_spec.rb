@@ -195,6 +195,18 @@ RSpec.describe Product, type: :model do
         expect(Outstanding.last.value).to eq 0
       end
 
+      it 'value could be changed after initialization' do
+        product_1
+        Outstanding.find_by(product_id: product_1.id).update({value: 15})
+        expect(Outstanding.find_by(product_id: product_1.id).value).to eq 15
+      end
+
+      it 'value could be changed after initialization - falsy' do
+        product_1
+        Outstanding.find_by(product_id: product_1.id).update({value: 15})
+        expect(Outstanding.find_by(product_id: product_1.id).value).not_to eq 0
+      end
+
       it 'automatically creates an outstanding - falsy' do
         product_1
         expect(Outstanding.last.product_id).not_to eq product_1.id + 1
