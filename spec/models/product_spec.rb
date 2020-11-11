@@ -215,32 +215,53 @@ RSpec.describe Product, type: :model do
   end
 
   describe 'associations' do
-    let(:product1) { Product.create(code: product_code_1, definition: definition_1) }
-
-    it 'has many categoryings' do
-      expect(product1).to respond_to(:categoryings)
-    end
-
-    it 'has many categoryings - falsy' do
-      expect(product1).not_to respond_to(:categoryingss)
-    end
-
-    it 'has many categories' do
-      expect(product1).to respond_to(:categories)
-    end
-
-    it 'has many categories - falsy' do
-      expect(product1).not_to respond_to(:categoriess)
-    end
-
     describe 'categories' do
+      let(:category_1) { Category.find_by(kind: 'Bosch', definition: 'Solo') }
+      let(:category_2) { Category.find_by(kind: 'Muhasebe', definition: 'Çamaşır Makinesi') }
+
+      it 'has many categoryings' do
+        expect(product_1).to respond_to(:categoryings)
+      end
+
+      it 'has many categoryings - falsy' do
+        expect(product_1).not_to respond_to(:categoryingss)
+      end
+
+      it 'has many categories' do
+        expect(product_1).to respond_to(:categories)
+      end
+
+      it 'has many categories - falsy' do
+        expect(product_1).not_to respond_to(:categoriess)
+      end
+
       it 'returns the categories of a product' do
-        # expect(product1.categories).to match [category1, category2]
+        expect(product_1.categories).to match [category_1, category_2]
+      end
+
+      it 'returns the categories of a product - falsy' do
+        expect(product_1.categories).not_to match [category_2]
       end
     end
 
     describe 'categoryings' do
+      let(:categoryings_1) { Categorying.where(product_id: product_1) }
+      let(:categoryings_2) { Categorying.where(product_id: product_2) }
+
       it 'returns the categoryings of a product' do
+        expect(product_1.categoryings).to match categoryings_1
+      end
+
+      it 'returns the categoryings of a product - falsy' do
+        expect(product_1.categoryings).not_to match categoryings_2
+      end
+
+      it 'returns the categoryings of a product' do
+        expect(product_2.categoryings).to match categoryings_2
+      end
+
+      it 'returns the categoryings of a product - falsy' do
+        expect(product_2.categoryings).not_to match categoryings_1
       end
     end
   end
