@@ -4,7 +4,7 @@ module Identifiable
 
   class_methods do
     def assign_categorying(product)
-      categories = {
+      {
         product: product.code,
         bosch: bosch_category_identifier(product),
         muhasebe: muhasebe_category_identifier(product)

@@ -22,6 +22,6 @@ class Product < ApplicationRecord
   end
 
   def create_outstanding
-    Outstanding.create(product_id: self.id)
+    Outstanding.create(product_id: id)
   end
 end

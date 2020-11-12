@@ -197,13 +197,13 @@ RSpec.describe Product, type: :model do
 
       it 'value could be changed after initialization' do
         product_1
-        Outstanding.find_by(product_id: product_1.id).update({value: 15})
+        Outstanding.find_by(product_id: product_1.id).update({ value: 15 })
         expect(Outstanding.find_by(product_id: product_1.id).value).to eq 15
       end
 
       it 'value could be changed after initialization - falsy' do
         product_1
-        Outstanding.find_by(product_id: product_1.id).update({value: 15})
+        Outstanding.find_by(product_id: product_1.id).update({ value: 15 })
         expect(Outstanding.find_by(product_id: product_1.id).value).not_to eq 0
       end
 
@@ -275,15 +275,15 @@ RSpec.describe Product, type: :model do
       end
 
       it 'returns the sales records of a product' do
-        sale_1 = Sale.create(product_id: product_1.id)
-        sale_2 = Sale.create(product_id: product_1.id)
-        expect(product_1.sales).to match [sale_1, sale_2]
+        sale1 = Sale.create(product_id: product_1.id)
+        sale2 = Sale.create(product_id: product_1.id)
+        expect(product_1.sales).to match [sale1, sale2]
       end
 
       it 'returns the sales records of a product - falsy' do
-        sale_1 = Sale.create(product_id: product_1.id)
-        sale_2 = Sale.create(product_id: product_2.id)
-        expect(product_1.sales).not_to match [sale_1, sale_2]
+        sale1 = Sale.create(product_id: product_1.id)
+        sale2 = Sale.create(product_id: product_2.id)
+        expect(product_1.sales).not_to match [sale1, sale2]
       end
     end
   end
