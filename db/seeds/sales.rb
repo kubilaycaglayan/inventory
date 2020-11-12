@@ -22,7 +22,22 @@ def seed_sales(csv_file_path)
       sell_price: row[7] === 'NULL' ? 0 : row[7]
     }
 
-    inv = Sale.create!(information)
+    sale = Sale.create!(information)
+
+    if row[8] == 'NULL'
+      kind = 'Kart' unless row[11] == 'NULL'
+    else
+      kind = row[8]
+    end
+
+    payment_information = {
+      sale_id: sale.id,
+      kind: 'Nakit',
+      bank: row[10] === 'NULL' ? nil : row[10],
+      comission: row[11] === 'NULL' ? nil : row[11],
+    }
+
+    Payment.create(payment_information)
   end
 
   puts "Seeding sales from #{csv_file_path} done."
