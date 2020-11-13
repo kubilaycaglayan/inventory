@@ -14,6 +14,7 @@
 #
 require_relative '../db/seeds/categories'
 require_relative '../db/seeds/products'
+
 system('clear')
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
@@ -96,8 +97,10 @@ RSpec.configure do |config|
   #   Kernel.srand config.seed
 
   # cleanups
+
   config.before(:suite) do
     DatabaseCleaner.clean_with :transaction
+    seed_categories
   end
 
   config.before(:each) do
@@ -106,7 +109,6 @@ RSpec.configure do |config|
 
   config.before(:all) do
     DatabaseCleaner.start
-    seed_categories
   end
 
   config.after(:all) do

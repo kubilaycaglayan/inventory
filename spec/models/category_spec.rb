@@ -44,6 +44,8 @@ RSpec.describe Category, type: :model do
 
     describe 'seeding' do
       it 'successfullt seeds the initial categories' do
+        Category.destroy_all
+        expect(Category.count).to eq 0
         seed_categories
         expect(Category.where(kind: 'Bosch').count).to be 6
         expect(Category.where(kind: 'Bosch').count).not_to be 0
