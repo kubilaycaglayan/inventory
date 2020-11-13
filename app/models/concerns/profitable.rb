@@ -1,4 +1,4 @@
-require_relative '../../helpers/unit_operations/profit_helper'
+require_relative './unit_operations/profit_helper'
 
 module Profitable
   extend ActiveSupport::Concern
