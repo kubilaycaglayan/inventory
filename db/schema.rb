@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 2020_10_26_124321) do
   create_table "payments", force: :cascade do |t|
     t.string "kind"
     t.string "bank"
-    t.decimal "comission", precision: 20, scale: 2
+    t.decimal "comission", precision: 20, scale: 2, default: "0.0"
     t.bigint "sale_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

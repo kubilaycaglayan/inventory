@@ -1,4 +1,5 @@
 class Sale < ApplicationRecord
+  after_create :add_payment_record
   include Profitable
 
   belongs_to :product
@@ -10,5 +11,11 @@ class Sale < ApplicationRecord
 
     result[:code] = product.code
     result
+  end
+
+  private
+
+  def add_payment_record
+    Payment.create(sale_id: id)
   end
 end

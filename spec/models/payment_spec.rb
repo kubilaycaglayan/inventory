@@ -15,6 +15,14 @@ RSpec.describe Payment, type: :model do
       it 'successfully creates a payment record' do
         expect(payment1.save!).to be true
       end
+
+      it 'creates the payment with default commision value 0' do
+        expect(Payment.new(sale_id: s1.id).comission).to eq 0
+      end
+
+      it 'creates the payment with default commision value 0 - value' do
+        expect(Payment.new(sale_id: s1.id).comission).not_to eq 1
+      end
     end
 
     describe 'foreign key validation sale must exist' do
