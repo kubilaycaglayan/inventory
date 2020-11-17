@@ -16,6 +16,8 @@ module AutoAddable
             definition: definition
           }
         )
+
+        current_products << code
       end
     end
   end
