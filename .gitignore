@@ -75,3 +75,4 @@ tmp/cache/bootsnap-load-path-cache
 log/development.log
 db/development.sqlite3
 db/seeds/paths.rb
+notes.md
