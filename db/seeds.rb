@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+
 require_relative './seeds/categories'
 require_relative './seeds/products'
 require_relative './seeds/invoices'
@@ -14,14 +15,28 @@ require_relative './seeds/paths'
 
 include FilePaths
 
-Category.destroy_all
-Categorying.destroy_all
-Product.destroy_all
-Invoice.destroy_all
-Sale.destroy_all
-Outstanding.destroy_all
+def destroy_all
+  Category.destroy_all
+  Categorying.destroy_all
+  Product.destroy_all
+  Invoice.destroy_all
+  Sale.destroy_all
+  Outstanding.destroy_all
+end
 
-seed_categories
-seed_products
-seed_invoices(INVOICES_PATH)
-seed_sales(SALES_PATH)
+def seed_all
+  seed_categories
+  seed_products
+  seed_invoices(INVOICES_PATH)
+  seed_sales(SALES_PATH)
+end
+
+case ARGV[1]
+when 'destroy_all'
+  destroy_all
+when 'seed_all'
+  seed_all
+when 'reset'
+  destroy_all
+  seed_categories
+end
