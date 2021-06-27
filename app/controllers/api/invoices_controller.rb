@@ -5,6 +5,7 @@ class Api::InvoicesController < ApplicationController
   def create
     if invoice_params['data'].nil?
       render json: {
+        autenthicated: true,
         message: 'No record provided.'
       }
       return
@@ -21,7 +22,7 @@ class Api::InvoicesController < ApplicationController
   private
 
   def authenticate_with_api_key
-    unless api_key_params['api_key'] == '123456'
+    unless api_key_params['api_key'] == 'api_key'
       render json: {
         autenthicated: false,
         message: 'Wrong API key.'

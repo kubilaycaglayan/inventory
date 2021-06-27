@@ -32,12 +32,12 @@ RSpec.describe 'Api::Invoices', type: :request do
       end
     end
 
-    describe 'invoice records' do
-      it 'creates new invoice records' do
-        post "#{proxy}/invoices",
-          params: { api_key: api_key }
-        expect
-      end
-    end
+    # describe 'invoice records' do
+    #   it 'creates new invoice records' do
+    #     post "#{proxy}/invoices",
+    #       params: { api_key: api_key }
+    #     expect
+    #   end
+    # end
   end
 end
