@@ -7,11 +7,11 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-require_relative './seeds/categories'
-require_relative './seeds/products'
-require_relative './seeds/invoices'
-require_relative './seeds/sales'
-require_relative './seeds/paths'
+# require_relative './seeds/categories'
+# require_relative './seeds/products'
+# require_relative './seeds/invoices'
+# require_relative './seeds/sales'
+# require_relative './seeds/paths'
 
 include FilePaths
 
@@ -25,6 +25,7 @@ def destroy_all
 end
 
 def seed_all
+  return
   seed_categories
   seed_products
   seed_invoices(INVOICES_PATH)
@@ -34,7 +35,8 @@ end
 case ARGV[1]
 when 'destroy_all'
   destroy_all
-when 'seed_all'
+when '
+  return'
   seed_all
 when 'reset'
   destroy_all
